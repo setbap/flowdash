@@ -4,6 +4,18 @@
 <StatsCard title="Title" link="link" stat={volumeInLastDay} status={"inc"} />
 ```
 
+**Advance Card with Dynamic Data**
+
+```js
+<StateCardRemoteData
+  url="https://api.coingecko.com/api/v3/simple/price?ids=optimism&vs_currencies=usd"
+  link="https://www.coingecko.com/en/coins/optimism"
+  status="unchanged"
+  title={"Current Optimism Price (USD)"}
+  getStat={(data) => data["optimism"].usd}
+/>
+```
+
 **DonutChart**
 
 ```js
@@ -15,6 +27,21 @@
   title="which dapps and addresses hold the majority of USN?"
   nameKey="Contract"
   dataKey="USN amount"
+/>
+```
+**Line Chart**
+
+```js
+<ChartBox
+  customColor={colors[0]}
+  data={dailyTXInformationData}
+  queryLink="https://app.flipsidecrypto.com/velocity/queries/4b25478f-c64c-4ac8-9e42-cc5ed0660290"
+  tooltipTitle="Number of unique address"
+  modelInfo="Number of unique address"
+  title="Number of daily unique address"
+  baseSpan={3}
+  areaDataKey="Unique Address"
+  xAxisDataKey="Day"
 />
 ```
 
