@@ -34,7 +34,6 @@ interface Props {
   xAxisDataKey: string;
   areaDataKey: string;
   title: string;
-  tooltipTitle: string;
   data: any[];
   extraDecimal?: number;
   isNotDate?: boolean;
@@ -301,7 +300,7 @@ const ChartBox = ({
             <Area
               dataKey={areaDataKey}
               style={{ stroke: chartColor }}
-              stroke={"red"}
+              stroke={customColor}
               fill={`url(#color${additionalDumpTextToAddKeyToKeyBeUnique})`}
             />
 
