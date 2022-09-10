@@ -23,7 +23,6 @@ export interface ISankeyChart {
     value: number;
   }[];
 }
-
 interface Props {
   modelInfo: string;
   title: string;

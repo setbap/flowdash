@@ -19,6 +19,7 @@ import {
   ResponsiveContainer,
   ComposedChart,
   Bar,
+  Legend,
 } from "recharts";
 import { GRID_ITEM_SIZE } from "./template";
 import ChartSpanMenu from "../basic/ChartSpanMenu";
@@ -314,6 +315,7 @@ const LineChartWithBar = ({
             <Bar
               yAxisId={showSeprate ? "right" : "left"}
               dataKey={barDataKey}
+              legendType="circle"
               fill={`url(#color${additionalDumpTextToAddKeyToKeyBeUnique})`}
             />
 
@@ -324,11 +326,11 @@ const LineChartWithBar = ({
               fill={`${chartColor}20`}
             />
 
-            {/* <Legend
-              verticalAlign="top"
+            <Legend
+              verticalAlign="bottom"
               fontSize={"8px"}
-              style={{ fontSize: "7px" }}
-            /> */}
+              style={{ fontSize: "7px", marginBottom: "4px" }}
+            />
           </ComposedChart>
         </ResponsiveContainer>
         <AnimatePresence>

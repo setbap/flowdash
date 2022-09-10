@@ -193,7 +193,7 @@ const StackedAreaChart = ({
         <ResponsiveContainer width={"100%"}>
           <AreaChart data={chartData} className="mt-1 mb-2">
             <CartesianGrid
-              style={{ stroke: "rgba(10,10,10,0.1)", opacity: 0.25 }}
+              style={{ stroke: "rgba(110,110,110,1)", opacity: 0.15 }}
               strokeDasharray="3 3"
             />
             <XAxis

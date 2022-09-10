@@ -266,39 +266,16 @@ const BarGraph = ({
               onMouseOut={handleLegendMouseLeave}
             />
             {labels.map((label, index) => (
-              <>
-                <defs>
-                  <linearGradient
-                    id={`color${index}bargraph`}
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop
-                      offset="0%"
-                      style={{ stopColor: label.color }}
-                      stopOpacity={0.5}
-                    />
-                    <stop
-                      offset="95%"
-                      style={{ stopColor: label.color }}
-                      stopOpacity={0.2}
-                    />
-                  </linearGradient>
-                </defs>
-                <Bar
-                  key={index}
-                  dataKey={label.key}
-                  stroke={labels[index].color}
-                  fill={labels[index].color}
-                  stackId={isSeprate ? index : dataKey}
-                  hide={barProps[label.key] === true}
-                  fillOpacity={Number(
-                    barProps.hover === label.key || !barProps.hover ? 1 : 0.6
-                  )}
-                />
-              </>
+              <Bar
+                key={index}
+                dataKey={label.key}
+                fill={label.color}
+                stackId={isSeprate ? index : dataKey}
+                hide={barProps[label.key] === true}
+                fillOpacity={Number(
+                  barProps.hover === label.key || !barProps.hover ? 1 : 0.6
+                )}
+              />
             ))}
           </BarChart>
         </ResponsiveContainer>
