@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 const NextSitemapConfig = {
-  siteUrl: `https://${names.APP_NAME}`,
+  siteUrl: `https://FlowDash.vercel.app`,
   generateRobotsTxt: true,
 };
 
