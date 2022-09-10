@@ -2,6 +2,7 @@ import { Box, GridItem, Heading, Link, SimpleGrid } from "@chakra-ui/react";
 import BarGraph from "lib/components/charts/BarGraph";
 import DonutChart from "lib/components/charts/DonutChart";
 import LineChartWithBar from "lib/components/charts/LineChartWithBar";
+import StackedAreaChart from "lib/components/charts/StackedAreaGraph";
 import { StatsCard } from "lib/components/charts/StateCard";
 import {} from "lib/types/types/home";
 import names from "lib/utility/names";
@@ -119,7 +120,7 @@ const Governance = ({
             labels={[
               {
                 key: "change (%) Sales Count",
-                color: colors[2],
+                color: colors[3],
               },
             ]}
           />
@@ -138,7 +139,7 @@ const Governance = ({
             labels={[
               {
                 key: "change (%) Unique Buyers",
-                color: colors[2],
+                color: colors[3],
               },
             ]}
           />
@@ -157,7 +158,7 @@ const Governance = ({
             labels={[
               {
                 key: "change (%) Unique Sellers",
-                color: colors[2],
+                color: colors[3],
               },
             ]}
           />
@@ -176,15 +177,14 @@ const Governance = ({
             labels={[
               {
                 key: "change (%) Sales Volume",
-                color: colors[2],
+                color: colors[3],
               },
             ]}
           />
 
           {/* end */}
 
-          <BarGraph
-            isSeprate
+          <StackedAreaChart
             queryLink={dailyInformation.key}
             modelInfo={""}
             values={dailyInformation.data}
