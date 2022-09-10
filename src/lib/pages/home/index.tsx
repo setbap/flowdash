@@ -8,6 +8,7 @@ import names from "lib/utility/names";
 
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
+import { HomeProps } from "pages";
 import { FiExternalLink } from "react-icons/fi";
 
 const CalendarChart: any = dynamic(
@@ -35,9 +36,10 @@ const colors = [
   "#607d8b",
 ];
 
-interface Props {}
-
-const Governance = ({}: Props): JSX.Element => {
+const Governance = ({
+  dailyInformation,
+  percentChangeOverTime,
+}: HomeProps): JSX.Element => {
   return (
     <>
       <NextSeo
@@ -66,7 +68,33 @@ const Governance = ({}: Props): JSX.Element => {
           columns={{ base: 1, md: 2, lg: 2, "2xl": 3 }}
           spacing={{ base: 5, lg: 8 }}
         >
-          {/* put cards */}
+          <StatsCard
+            title={dailyInformation.title.split(",")[0]}
+            link={dailyInformation.key}
+            stat={dailyInformation.data[0]["Total Sales Count"]}
+            status={"inc"}
+          />
+
+          <StatsCard
+            title={dailyInformation.title.split(",")[1]}
+            link={dailyInformation.key}
+            stat={dailyInformation.data[0]["Total Unique Buyers"]}
+            status={"inc"}
+          />
+
+          <StatsCard
+            title={dailyInformation.title.split(",")[2]}
+            link={dailyInformation.key}
+            stat={dailyInformation.data[0]["Total Unique Sellers"]}
+            status={"inc"}
+          />
+
+          <StatsCard
+            title={dailyInformation.title.split(",")[4]}
+            link={dailyInformation.key}
+            stat={dailyInformation.data[0]["Total Sales Volume"]}
+            status={"inc"}
+          />
         </SimpleGrid>
         <SimpleGrid
           position={"relative"}
@@ -76,7 +104,149 @@ const Governance = ({}: Props): JSX.Element => {
           columns={{ sm: 1, md: 1, lg: 2, "2xl": 3 }}
           spacing={{ base: 1, md: 2, lg: 4 }}
         >
-          {/* put charts */}
+          {/* start  */}
+          <BarGraph
+            seprateNegetive
+            isNotDate
+            queryLink={percentChangeOverTime.key}
+            modelInfo={""}
+            values={percentChangeOverTime.data}
+            title={percentChangeOverTime.title.split(",")[0]}
+            dataKey="Month"
+            baseSpan={3}
+            oyLabel="% change"
+            oxLabel=""
+            labels={[
+              {
+                key: "change (%) Sales Count",
+                color: colors[2],
+              },
+            ]}
+          />
+
+          <BarGraph
+            seprateNegetive
+            isNotDate
+            queryLink={percentChangeOverTime.key}
+            modelInfo={""}
+            values={percentChangeOverTime.data}
+            title={percentChangeOverTime.title.split(",")[1]}
+            dataKey="Month"
+            baseSpan={3}
+            oyLabel="% change"
+            oxLabel=""
+            labels={[
+              {
+                key: "change (%) Unique Buyers",
+                color: colors[2],
+              },
+            ]}
+          />
+
+          <BarGraph
+            seprateNegetive
+            isNotDate
+            queryLink={percentChangeOverTime.key}
+            modelInfo={""}
+            values={percentChangeOverTime.data}
+            title={percentChangeOverTime.title.split(",")[2]}
+            dataKey="Month"
+            baseSpan={3}
+            oyLabel="% change"
+            oxLabel=""
+            labels={[
+              {
+                key: "change (%) Unique Sellers",
+                color: colors[2],
+              },
+            ]}
+          />
+
+          <BarGraph
+            seprateNegetive
+            isNotDate
+            queryLink={percentChangeOverTime.key}
+            modelInfo={""}
+            values={percentChangeOverTime.data}
+            title={percentChangeOverTime.title.split(",")[3]}
+            dataKey="Month"
+            baseSpan={3}
+            oyLabel="% change"
+            oxLabel=""
+            labels={[
+              {
+                key: "change (%) Sales Volume",
+                color: colors[2],
+              },
+            ]}
+          />
+
+          {/* end */}
+
+          <BarGraph
+            isSeprate
+            queryLink={dailyInformation.key}
+            modelInfo={""}
+            values={dailyInformation.data}
+            title={dailyInformation.title.split(",")[3]}
+            dataKey="Day"
+            baseSpan={3}
+            oyLabel="Count"
+            oxLabel=""
+            labels={[
+              {
+                key: "Unique Sellers",
+                color: colors[3],
+              },
+              {
+                key: "Unique Buyers",
+                color: colors[0],
+              },
+            ]}
+          />
+
+          <BarGraph
+            queryLink={dailyInformation.key}
+            modelInfo={""}
+            values={dailyInformation.data}
+            title={dailyInformation.title.split(",")[5]}
+            dataKey="Day"
+            baseSpan={3}
+            oyLabel="Count"
+            oxLabel=""
+            labels={[
+              {
+                key: "Sales Count",
+                color: colors[2],
+              },
+            ]}
+          />
+          <CalendarChart
+            disclaimer={"darker color has more value"}
+            queryLink={dailyInformation.key}
+            modelInfo={""}
+            years={[2022]}
+            data={dailyInformation.data}
+            title={dailyInformation.title.split(",")[5]}
+            tooltipTitle=""
+            baseSpan={3}
+            areaDataKey="Sales Count"
+            xAxisDataKey="Day"
+          />
+
+          <LineChartWithBar
+            showSeprate
+            customColor={colors[1]}
+            barColor={colors[3]}
+            queryLink={dailyInformation.key}
+            modelInfo={""}
+            data={dailyInformation.data}
+            title={dailyInformation.title.split(",")[6]}
+            baseSpan={3}
+            barDataKey="Sales Volume"
+            lineDataKey="AVG Sales Volume"
+            xAxisDataKey="Day"
+          />
         </SimpleGrid>
       </Box>
     </>

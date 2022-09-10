@@ -9,6 +9,8 @@ import {
   Label,
   ResponsiveContainer,
   CartesianGrid,
+  Cell,
+  ReferenceLine,
 } from "recharts";
 import {
   Box,
@@ -41,7 +43,9 @@ const BarGraph = ({
   queryLink,
   disclaimer,
   isSeprate = false,
+  seprateNegetive = false,
 }: {
+  seprateNegetive?: boolean;
   defualtTime?: "day" | "month";
   title: string;
   disclaimer?: string;
@@ -287,17 +291,25 @@ const BarGraph = ({
                     />
                   </linearGradient>
                 </defs>
+                {seprateNegetive && <ReferenceLine y={0} stroke="#a9a9a9" />}
                 <Bar
                   key={index}
                   dataKey={label.key}
-                  stroke={labels[index].color}
-                  fill={labels[index].color}
+                  // stroke={labels[index].color}
+                  fill={label.color}
                   stackId={isSeprate ? index : dataKey}
                   hide={barProps[label.key] === true}
                   fillOpacity={Number(
                     barProps.hover === label.key || !barProps.hover ? 1 : 0.6
                   )}
-                />
+                >
+                  {seprateNegetive &&
+                    chartData!.map((entry, index) => (
+                      <Cell
+                        fill={entry[label.key] > 0 ? label.color : "#f00"}
+                      />
+                    ))}
+                </Bar>
               </>
             ))}
           </BarChart>

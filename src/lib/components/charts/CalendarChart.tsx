@@ -38,6 +38,7 @@ interface Props {
   defultSelectedRange?: number | string;
   defultDateView?: "month" | "day";
   queryLink?: string;
+  disclaimer?: string;
   additionalDumpTextToAddKeyToKeyBeUnique?: string;
   customColor?: string;
   years: number[];
@@ -51,16 +52,12 @@ const CalendarChart = ({
   defultDateView = "day",
   queryLink,
   isNotDate = false,
-  extraDecimal = 2,
-  domain,
   areaDataKey,
   xAxisDataKey,
+  disclaimer,
   data,
   title,
-  modelInfo = "This chart shows the Congestion of the network each day. Light colors indicate low numbers and dark colors indicate high numbers that day.",
-  additionalDumpTextToAddKeyToKeyBeUnique = "",
-  defultSelectedRange = "all",
-  customColor = "var(--chakra-colors-green-300)",
+  modelInfo = "",
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
   const [defultViewSetting, setDefultViewSetting] = useState(defultDateView);
@@ -83,7 +80,6 @@ const CalendarChart = ({
   const bgTooltip = useColorModeValue("gray.300", "gray.700");
   const bgCard = useColorModeValue("white", "#191919");
   const textColor = useColorModeValue("gray.900", "gray.100");
-  const chartColor = customColor;
 
   return (
     <GridItem
@@ -110,6 +106,7 @@ const CalendarChart = ({
         id={title}
       >
         <ChartHeader
+          disclaimer={disclaimer}
           chartMenu={
             <MenuList bg="#232323">
               {queryLink && (
@@ -142,20 +139,26 @@ const CalendarChart = ({
             .toDate()}
           emptyColor="#aaa2"
           colors={[
-            "#efe",
             "#cfc",
+            "#bfb",
             "#afa",
             "#9f9",
-            "#61ffbb",
-            "#97e3d5",
-            "#a7e3d5",
-            "#e8c1a0",
-            "#a57560",
-            "#b47560",
-            "#c47560",
-            "#e47560",
-            "#f07560",
-            "#ff7560",
+            "#8f8",
+            "#7f7",
+            "#6f6",
+            "#5f5",
+            "#4f4",
+            "#3f3",
+            "#2f2",
+            "#1f1",
+            "#0f0",
+            // "#e8c1a0",
+            // "#a57560",
+            // "#b47560",
+            // "#c47560",
+            // "#e47560",
+            // "#f07560",
+            // "#ff7560",
           ]}
           yearSpacing={0}
           monthBorderColor="transparent"

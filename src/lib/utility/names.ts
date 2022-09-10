@@ -1,5 +1,5 @@
 export default {
-  APP_NAME: "AvalancheDash",
-  SITE_URL: "AvaDash.vercel.app",
-  BLOCKCHAIN: "Avalanceh",
+  APP_NAME: "FlowDash",
+  SITE_URL: "FlowDash.vercel.app",
+  BLOCKCHAIN: "Flow",
 };
