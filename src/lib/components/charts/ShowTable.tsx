@@ -167,7 +167,7 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
           ))}
         </Tfoot>
       </ChTable>
-      <HStack spacing={4}>
+      <HStack maxW={"480px"} spacing={4}>
         <InputGroup rounded={"lg"} overflow="hidden" size="sm">
           <InputLeftAddon children="page" />
           <Input
