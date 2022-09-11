@@ -93,7 +93,7 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
             <ModalContent bg={"#191919"}>
               <ModalHeader>Moment Description</ModalHeader>
               <ModalCloseButton />
-              <ModalBody>{info.getValue()}</ModalBody>
+              <ModalBody>{info.getValue() as string}</ModalBody>
 
               <ModalFooter>
                 <Button mr={3} onClick={onClose}>
