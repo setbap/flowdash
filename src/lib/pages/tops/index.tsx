@@ -36,6 +36,7 @@ const colors = [
 const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
   {
     accessorFn: (row) => row.ID,
+    enableSorting: false,
     id: "ID",
     cell: (info) => info.getValue(),
     header: () => <span>ID</span>,
@@ -76,6 +77,9 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
   {
     accessorFn: (row) => row["Moment Description"],
     id: "Describe",
+    enableSorting: false,
+    enableColumnFilter: false,
+    enableGlobalFilter: false,
     cell: (info) => {
       const { isOpen, onOpen, onClose } = useDisclosure();
       return (
