@@ -18,6 +18,7 @@ import { NextSeo } from "next-seo";
 import { TopsProps } from "pages/tops";
 import { ColumnDef } from "@tanstack/react-table";
 import { ShowTable } from "lib/components/charts/ShowTable";
+import TableBox from "lib/components/charts/TableBox";
 const colors = [
   "#ff5722",
   "#03a9f4",
@@ -143,11 +144,18 @@ const Governance = ({ topNFTVolume }: TopsProps): JSX.Element => {
           transition={"all 0.9s ease-in-out"}
           py={"6"}
           zIndex={100}
-          // columns={{ sm: 1, md: 1, lg: 2, "2xl": 3 }}
-          columns={{ sm: 1 }}
+          columns={{ sm: 1, md: 1, lg: 2, "2xl": 3 }}
           spacing={{ base: 1, md: 2, lg: 4 }}
         >
-          <ShowTable data={topNFTVolume.data} columnsDef={colDef} />
+          <TableBox
+            customHeaderColor={colors[2]}
+            queryLink={topNFTVolume.key}
+            title={topNFTVolume.title}
+            baseSpan={3}
+            modelInfo={""}
+            data={topNFTVolume.data}
+            columnsDef={colDef}
+          />
         </SimpleGrid>
       </Box>
     </>

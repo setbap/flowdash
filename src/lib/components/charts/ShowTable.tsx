@@ -25,6 +25,7 @@ import {
   InputLeftAddon,
   InputRightAddon,
   HStack,
+  Td,
 } from "@chakra-ui/react";
 import FocusLock from "react-focus-lock";
 
@@ -58,11 +59,16 @@ import { rankItem } from "@tanstack/match-sorter-utils";
 import { AiFillSetting, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BiFirstPage, BiLastPage } from "react-icons/bi";
 
-interface IShowTableProps<T> {
+export interface IShowTableProps<T> {
   data: T[];
   columnsDef: ColumnDef<T>[];
+  customHeaderColor: string;
 }
-export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
+export function ShowTable<T>({
+  data,
+  columnsDef,
+  customHeaderColor,
+}: IShowTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -80,11 +86,7 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
     state: {
       sorting,
       pagination,
-      // columnFilters,
-      // globalFilter,
     },
-    // onColumnFiltersChange: setColumnFilters,
-    // onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: fuzzyFilter,
     onSortingChange: setSorting,
     onPaginationChange: setPagination,
@@ -98,20 +100,22 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
     debugTable: true,
   });
   return (
-    <TableContainer>
-      <ChTable variant="striped">
-        <Thead>
+    <TableContainer pt={"2"} pb="4" w="full">
+      <ChTable overflow={"hidden"} variant="simple">
+        <Thead
+          borderTopRadius={"sm"}
+          overflow="hidden"
+          color={"black"}
+          bg={`${customHeaderColor}20`}
+        >
           {table.getHeaderGroups().map((headerGroup) => (
-            <Tr h={"4"} key={headerGroup.id}>
+            <Tr h={"4"} color="black" key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <Th>
                   <Box
+                    d="inline-block"
                     key={header.id}
-                    className={
-                      header.column.getCanSort()
-                        ? "cursor-pointer select-none"
-                        : ""
-                    }
+                    cursor={header.column.getCanSort() ? "pointer" : "default"}
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     {header.isPlaceholder
@@ -128,12 +132,12 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
                     <Box d="inline-block">
                       <SortStateIcon data={header.column.getIsSorted()} />
                     </Box>
-                    {header.column.getCanFilter() ? (
-                      <Box ml={2} d="inline-block">
-                        <Filter column={header.column} table={table} />
-                      </Box>
-                    ) : null}
                   </Box>
+                  {header.column.getCanFilter() ? (
+                    <Box ml={2} d="inline-block">
+                      <Filter column={header.column} table={table} />
+                    </Box>
+                  ) : null}
                 </Th>
               ))}
             </Tr>
@@ -141,13 +145,13 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
         </Thead>
         <Tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <Tr _hover={{ bg: "#242424" }} key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <Td border={"none"} p="1" key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                </Td>
               ))}
-            </tr>
+            </Tr>
           ))}
         </Tbody>
         <Tfoot>
@@ -167,8 +171,8 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
           ))}
         </Tfoot>
       </ChTable>
-      <HStack maxW={"480px"} spacing={4}>
-        <InputGroup rounded={"lg"} overflow="hidden" size="sm">
+      <HStack justifyContent={"space-between"} spacing={4}>
+        <InputGroup w={"160px"} rounded={"lg"} overflow="hidden" size="sm">
           <InputLeftAddon children="page" />
           <Input
             type="number"
@@ -181,7 +185,7 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
 
           <InputRightAddon children={`of ${table.getPageCount()}`} />
         </InputGroup>
-        <ButtonGroup size="sm" isAttached variant="outline">
+        <ButtonGroup w={"160px"} size="sm" isAttached variant="outline">
           <IconButton
             aria-label="go to first page"
             icon={<BiFirstPage />}
@@ -210,6 +214,7 @@ export function ShowTable<T>({ data, columnsDef }: IShowTableProps<T>) {
         </ButtonGroup>
 
         <Select
+          w={"160px"}
           size="sm"
           rounded={"lg"}
           value={table.getState().pagination.pageSize}
@@ -298,16 +303,20 @@ const FilterContainer = ({ children }: { children: JSX.Element }) => {
         initialFocusRef={firstFieldRef}
         onOpen={onOpen}
         onClose={onClose}
-        placement="right"
+        placement="auto"
         closeOnBlur={false}
         closeOnEsc
       >
         <PopoverTrigger>
-          <AiFillSetting />
+          <IconButton
+            aria-label="open filter column"
+            size="sm"
+            variant={"ghost"}
+            icon={<AiFillSetting />}
+          />
         </PopoverTrigger>
         <PopoverContent bg="#191919" p={3}>
           <FocusLock returnFocus persistentFocus={false}>
-            <PopoverArrow />
             <PopoverCloseButton p={2} />
             <Stack mt={2} spacing={3}>
               {children}
