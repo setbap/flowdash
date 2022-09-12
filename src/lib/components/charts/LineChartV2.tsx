@@ -27,6 +27,7 @@ import { FilterDayBarBox } from "../basic/FilterDayBar";
 import { AnimatePresence } from "framer-motion";
 import MotionBox from "../motion/Box";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
+import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
   modelInfo: string;
@@ -44,6 +45,7 @@ interface Props {
   defultDateView?: "month" | "day";
   showMonthly?: boolean;
   queryLink?: string;
+  infoSizePercentage?: number;
 }
 
 const LineChartV2 = ({
@@ -61,6 +63,7 @@ const LineChartV2 = ({
   modelInfo,
   defultSelectedRange = "all",
   showMonthly = true,
+  infoSizePercentage = 50,
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
   const [defultViewSetting, setDefultViewSetting] = useState(defultDateView);
