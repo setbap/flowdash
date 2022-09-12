@@ -27,6 +27,8 @@ import { GRID_ITEM_SIZE } from "./template";
 import ChartSpanMenu from "../basic/ChartSpanMenu";
 import ChartHeader from "../basic/ChartHeader";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
+import MDRenderer from "../basic/MDRenderer";
+import { ModalInfo } from "../basic/ModalInfo";
 
 const BarGraph = ({
   title,
@@ -44,6 +46,7 @@ const BarGraph = ({
   disclaimer,
   isSeprate = false,
   seprateNegetive = false,
+  infoSizePercentage = 50,
 }: {
   seprateNegetive?: boolean;
   defualtTime?: "day" | "month";
@@ -61,6 +64,7 @@ const BarGraph = ({
   queryLink?: string;
   extraInfoToTooltip?: string;
   labels: { key: string; color: string }[];
+  infoSizePercentage?: number;
 }) => {
   const hasMonthly = !isNotDate && monthlyValues && monthlyValues.length > 0;
   const [chartData, setChartData] = useState(
@@ -132,7 +136,6 @@ const BarGraph = ({
   return (
     <GridItem
       rowSpan={1}
-      colSpan={spanItem}
       color={textColor}
       bgColor={bgCard}
       shadow="base"
@@ -140,8 +143,23 @@ const BarGraph = ({
       _hover={{ boxShadow: "var(--chakra-shadows-lg)" }}
       borderRadius={"2xl"}
       width="100%"
+      colSpan={spanItem}
+      display="flex"
+      flex={2}
+      flexDir={
+        spanItem["2xl"] !== 3
+          ? "column-reverse"
+          : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
+      }
     >
+      <ModalInfo
+        modalInfo={modelInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={spanItem["2xl"]}
+      />
+
       <Box
+        flex={1}
         px="4"
         pt="4"
         pb={"2"}

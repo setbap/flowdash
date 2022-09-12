@@ -46,7 +46,8 @@ export default function ChartHeader({
       alignItems="center"
       justifyContent={"space-between"}
     >
-      {!(modalInfo === "" || modalInfo === null) ? (
+      {/* {!(modalInfo === "" || modalInfo === null) ? ( */}
+      {false ? (
         <IconButton
           size={"sm"}
           variant={"outline"}

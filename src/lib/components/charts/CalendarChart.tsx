@@ -23,6 +23,8 @@ import { AnimatePresence } from "framer-motion";
 import MotionBox from "../motion/Box";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
 import TrendLine from "./TrendLine";
+import MDRenderer from "../basic/MDRenderer";
+import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
   modelInfo?: string;
@@ -43,6 +45,7 @@ interface Props {
   customColor?: string;
   years: number[];
   selectedYear: number;
+  infoSizePercentage?: number;
 }
 
 const CalendarChart = ({
@@ -58,6 +61,7 @@ const CalendarChart = ({
   data,
   title,
   modelInfo = "",
+  infoSizePercentage = 50,
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
   const [defultViewSetting, setDefultViewSetting] = useState(defultDateView);
@@ -92,8 +96,21 @@ const CalendarChart = ({
       borderRadius={"2xl"}
       width="100%"
       colSpan={spanItem}
+      display="flex"
+      flex={2}
+      flexDir={
+        spanItem["2xl"] !== 3
+          ? "column-reverse"
+          : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
+      }
     >
+      <ModalInfo
+        modalInfo={modelInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={spanItem["2xl"]}
+      />
       <Box
+        flex={1}
         px="6"
         pt="4"
         pb={"2"}

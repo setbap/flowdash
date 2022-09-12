@@ -58,8 +58,21 @@ const FlowChart = ({
       borderRadius={"2xl"}
       width="100%"
       colSpan={spanItem}
+      display="flex"
+      flex={2}
+      flexDir={
+        spanItem["2xl"] !== 3
+          ? "column-reverse"
+          : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
+      }
     >
+      <ModalInfo
+        modalInfo={modelInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={spanItem["2xl"]}
+      />
       <Box
+        flex={1}
         px="6"
         pt="4"
         pb={"2"}

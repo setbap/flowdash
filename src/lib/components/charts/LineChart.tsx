@@ -30,6 +30,7 @@ import MotionBox from "../motion/Box";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
 import TrendLine from "./TrendLine";
 import MDRenderer from "../basic/MDRenderer";
+import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
   modelInfo: string;
@@ -154,7 +155,6 @@ const ChartBox = ({
   const textColor = useColorModeValue("gray.900", "gray.100");
   const chartColor = customColor;
   const chartUniquKey = `${areaDataKey}-${xAxisDataKey}-${additionalDumpTextToAddKeyToKeyBeUnique}`;
-  const showExtraInfo: boolean = !(modelInfo === "" || modelInfo === null);
   return (
     <GridItem
       rowSpan={1}
@@ -174,30 +174,11 @@ const ChartBox = ({
           : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
       }
     >
-      {showExtraInfo && (
-        <Box
-          bg={"#1c1c1c"}
-          p={6}
-          rounded="lg"
-          height={"full"}
-          w={
-            spanItem["2xl"] !== 3
-              ? "100%"
-              : [
-                  "100%",
-                  "100%",
-                  "100%",
-                  `${50}%`,
-                  `${infoSizePercentage}%`,
-                  `${infoSizePercentage}%`,
-                ]
-          }
-        >
-          <Box>
-            <MDRenderer>{modelInfo}</MDRenderer>
-          </Box>
-        </Box>
-      )}
+      <ModalInfo
+        modalInfo={modelInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={spanItem["2xl"]}
+      />
       <Box
         flex={1}
         px="6"

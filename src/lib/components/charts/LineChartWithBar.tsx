@@ -28,6 +28,8 @@ import { FilterDayBarBox } from "../basic/FilterDayBar";
 import { AnimatePresence } from "framer-motion";
 import MotionBox from "../motion/Box";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
+import MDRenderer from "../basic/MDRenderer";
+import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
   modelInfo: string;
@@ -48,6 +50,7 @@ interface Props {
   barColor: string;
   additionalDumpTextToAddKeyToKeyBeUnique?: string;
   customColor?: string;
+  infoSizePercentage?: number;
 }
 
 const LineChartWithBar = ({
@@ -67,6 +70,7 @@ const LineChartWithBar = ({
   additionalDumpTextToAddKeyToKeyBeUnique = "",
   defultSelectedRange = "all",
   showMonthly = false,
+  infoSizePercentage = 50,
   customColor = "var(--chakra-colors-green-300)",
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
@@ -167,8 +171,21 @@ const LineChartWithBar = ({
       borderRadius={"2xl"}
       width="100%"
       colSpan={spanItem}
+      display="flex"
+      flex={2}
+      flexDir={
+        spanItem["2xl"] !== 3
+          ? "column-reverse"
+          : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
+      }
     >
+      <ModalInfo
+        modalInfo={modelInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={spanItem["2xl"]}
+      />
       <Box
+        flex={1}
         px="6"
         pt="4"
         pb={"2"}

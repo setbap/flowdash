@@ -1,31 +1,27 @@
-import {
-  Box,
-  useColorModeValue,
-  GridItem,
-  MenuList,
-  MenuDivider,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue, GridItem, MenuList } from "@chakra-ui/react";
 import { useState } from "react";
 import { GRID_ITEM_SIZE } from "./template";
 import ChartHeader from "../basic/ChartHeader";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
 import { IShowTableProps, ShowTable } from "./ShowTable";
+import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props<T> extends IShowTableProps<T> {
   modelInfo: string;
   title: string;
   queryLink?: string;
   baseSpan: number;
+  infoSizePercentage?: number;
 }
 
 function TableBox<T>({
+  infoSizePercentage = 50,
   baseSpan = 3,
   queryLink,
   data,
   columnsDef,
   title,
   modelInfo,
-  customHeaderColor,
 }: Props<T>) {
   const [spanItem, _] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
 
@@ -44,8 +40,17 @@ function TableBox<T>({
       borderRadius={"2xl"}
       width="100%"
       colSpan={spanItem}
+      display="flex"
+      flex={2}
+      flexDir={"column-reverse"}
     >
+      <ModalInfo
+        modalInfo={modelInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={spanItem["2xl"] + 1}
+      />
       <Box
+        flex={1}
         px="6"
         pt="4"
         pb={"2"}
