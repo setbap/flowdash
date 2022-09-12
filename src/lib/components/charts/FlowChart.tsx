@@ -11,6 +11,7 @@ import { GRID_ITEM_SIZE } from "./template";
 import ChartSpanMenu from "../basic/ChartSpanMenu";
 import ChartHeader from "../basic/ChartHeader";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
+import { ModalInfo } from "../basic/ModalInfo";
 
 export interface ISankeyChart {
   nodes: {
@@ -31,6 +32,7 @@ interface Props {
   baseSpan?: number;
   queryLink?: string;
   customColor?: string;
+  infoSizePercentage?: number;
 }
 
 const FlowChart = ({
@@ -39,6 +41,7 @@ const FlowChart = ({
   data,
   title,
   modelInfo,
+  infoSizePercentage=50,
   customColor = "var(--chakra-colors-green-300)",
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
