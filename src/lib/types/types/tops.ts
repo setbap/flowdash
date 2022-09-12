@@ -8,3 +8,8 @@ export interface ITopNFTBasedOnVolume {
   Week: number;
   "Video Link": string;
 }
+
+export interface ITopNFTIDBaseSaleNumber {
+  Id: number;
+  "Number of Sale": number;
+}

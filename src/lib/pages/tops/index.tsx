@@ -19,6 +19,7 @@ import { TopsProps } from "pages/tops";
 import { ColumnDef } from "@tanstack/react-table";
 import { ShowTable } from "lib/components/charts/ShowTable";
 import TableBox from "lib/components/charts/TableBox";
+import BarGraph from "lib/components/charts/BarGraph";
 const colors = [
   "#ff5722",
   "#03a9f4",
@@ -110,7 +111,10 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
   },
 ];
 
-const Governance = ({ topNFTVolume }: TopsProps): JSX.Element => {
+const Governance = ({
+  topNFTVolume,
+  topNFTIDBaseSaleNumber,
+}: TopsProps): JSX.Element => {
   return (
     <>
       <NextSeo
@@ -155,6 +159,23 @@ const Governance = ({ topNFTVolume }: TopsProps): JSX.Element => {
             modelInfo={""}
             data={topNFTVolume.data}
             columnsDef={colDef}
+          />
+          <BarGraph
+            queryLink={topNFTIDBaseSaleNumber.key}
+            modelInfo={`modal info`}
+            values={topNFTIDBaseSaleNumber.data}
+            title={topNFTIDBaseSaleNumber.title}
+            dataKey="Id"
+            baseSpan={3}
+            isNotDate
+            oyLabel="Sales Count"
+            oxLabel="Dapps Name"
+            labels={[
+              {
+                key: "Number of Sale",
+                color: colors[0],
+              },
+            ]}
           />
         </SimpleGrid>
       </Box>
