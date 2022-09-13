@@ -13,7 +13,7 @@ import ChartSpanMenu from "../basic/ChartSpanMenu";
 import ChartHeader from "../basic/ChartHeader";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
 interface Props {
-  modelInfo: string;
+  modalInfo: string;
   dataKey: string;
   nameKey: string;
   title: string;
@@ -30,7 +30,7 @@ const DonutChart = ({
   nameKey,
   data,
   title,
-  modelInfo,
+  modalInfo,
   colors = [
     "#00bcd4",
     "#ffc107",
@@ -180,7 +180,7 @@ const DonutChart = ({
                 />
               </MenuList>
             }
-            modalInfo={modelInfo}
+            modalInfo={modalInfo}
             title={title}
           />
           <Box p={"1"} />

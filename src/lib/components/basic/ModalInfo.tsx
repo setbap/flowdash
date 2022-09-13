@@ -8,7 +8,7 @@ export const ModalInfo = ({
 }: {
   modalInfo: string;
   largeSpanSize: number;
-  infoSizePercentage: number;
+  infoSizePercentage: number | "full";
 }) => {
   const showExtraInfo: boolean = !(modalInfo === "" || modalInfo === null);
 
@@ -17,9 +17,9 @@ export const ModalInfo = ({
       bg={"#1c1c1c"}
       p={6}
       rounded="lg"
-      height={"full"}
+      height={infoSizePercentage === "full" ? "auto" : "full"}
       w={
-        largeSpanSize !== 3
+        largeSpanSize !== 3 || infoSizePercentage === "full"
           ? "100%"
           : [
               "100%",

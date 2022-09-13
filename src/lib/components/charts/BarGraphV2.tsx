@@ -33,7 +33,7 @@ const BarGraph = ({
   values,
   baseSpan = 1,
   labels,
-  modelInfo,
+  modalInfo,
   isNotDate = false,
   monthlyValues,
   extraInfoToTooltip,
@@ -51,7 +51,7 @@ const BarGraph = ({
   isNotDate?: boolean;
   monthlyValues?: any[];
   values: any[];
-  modelInfo: string;
+  modalInfo: string;
   baseSpan?: number;
   isSeprate?: boolean;
   queryLink?: string;
@@ -186,7 +186,7 @@ const BarGraph = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

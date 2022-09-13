@@ -27,7 +27,7 @@ import { FilterDayBarBox } from "../basic/FilterDayBar";
 
 interface Props {
   baseSpan?: number;
-  modelInfo: string;
+  modalInfo: string;
   xAxisDataKey: string;
   areaDataKey: string[];
   title: string;
@@ -46,7 +46,7 @@ const MultiChartBox = ({
   xAxisDataKey,
   data,
   title,
-  modelInfo,
+  modalInfo,
   defultSelectedRange = "all",
   chartColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"],
 }: Props) => {
@@ -143,7 +143,7 @@ const MultiChartBox = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

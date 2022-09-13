@@ -14,6 +14,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiExternalLink } from "react-icons/fi";
 import ReactMarkdown from "react-markdown";
 import Renderer from "chakra-ui-markdown-renderer";
+import { HiArrowSmUp } from "react-icons/hi";
 
 interface StatsCardProps {
   title: string;
@@ -25,11 +26,17 @@ interface StatsCardProps {
   decimal?: number;
   forceDecimal?: boolean;
   customColor?: string;
+  top?: number | string;
+  hasArrowIcon?: boolean;
+  rotate?: string;
 }
 export const StatsCard = (props: StatsCardProps) => {
   const bgCard = useColorModeValue("white", "#191919");
   const {
     title,
+    hasArrowIcon = true,
+    rotate = "0deg",
+    top = "20%",
     stat,
     status = "unchanged",
     forceDecimal = false,
@@ -107,14 +114,15 @@ export const StatsCard = (props: StatsCardProps) => {
 
   return (
     <Stat
-      px={{ base: 4, md: 8 }}
+      px={{ base: 2, md: 4 }}
       zIndex={0}
-      pt="5"
-      pb={"4"}
+      pt="3"
+      pb={"2"}
       shadow="base"
+      overflow={"hidden"}
       transition={"box-shadow 0.4s"}
       _hover={{ boxShadow: "var(--chakra-shadows-xl)" }}
-      backgroundColor={bgCard}
+      backgroundColor={bgCard + "f0"}
       border="1px solid"
       borderColor={statusColor}
       rounded="lg"
@@ -124,24 +132,26 @@ export const StatsCard = (props: StatsCardProps) => {
           {title} {tooltip}
         </StatLabel>
       ) : (
-        <Link
-          href={`https://app.flipsidecrypto.com/velocity/queries/${props.link}`}
-          isExternal
-        >
-          <StatLabel fontWeight="medium" display={"inline-flex"} isTruncated>
-            {title}{" "}
-            <Box px={"1"}>
-              <FiExternalLink />
-            </Box>
-            {tooltip}
-          </StatLabel>
-        </Link>
+        <>
+          <Link
+            href={`https://app.flipsidecrypto.com/velocity/queries/${props.link}`}
+            isExternal
+          >
+            <StatLabel fontWeight="medium" display={"inline-flex"} isTruncated>
+              {title}{" "}
+              <Box px={"1"}>
+                <FiExternalLink />
+              </Box>
+            </StatLabel>
+          </Link>
+          {tooltip}
+        </>
       )}
 
       <StatNumber
         pt={"1"}
         color={statusColor}
-        fontSize="4xl"
+        fontSize="2xl"
         fontWeight="extrabold"
       >
         <Box display={"inline-flex"}>
@@ -152,6 +162,37 @@ export const StatsCard = (props: StatsCardProps) => {
           </Box>
         </Box>
       </StatNumber>
+      {hasArrowIcon && (
+        <Box
+          width={"35%"}
+          h="full"
+          opacity={0.2}
+          bg={statusColor}
+          inset="0"
+          clipPath={"polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);"}
+          left={"65%"}
+          pos="absolute"
+        ></Box>
+      )}
+      {hasArrowIcon && (
+        <Box
+          width={"30%"}
+          h="full"
+          inset="0"
+          left={"70%"}
+          top={top}
+          transform="auto"
+          rotate={rotate}
+          pos="absolute"
+          zIndex={1}
+          display="flex"
+          justifyContent={"center"}
+          alignItems="center"
+          color={statusColor}
+        >
+          <HiArrowSmUp opacity={0.5} fontSize={"7rem"} />
+        </Box>
+      )}
     </Stat>
   );
 };

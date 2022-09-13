@@ -32,7 +32,7 @@ import MDRenderer from "../basic/MDRenderer";
 import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
-  modelInfo: string;
+  modalInfo: string;
   xAxisDataKey: string;
   showSeprate?: boolean;
   lineDataKey: string;
@@ -50,7 +50,7 @@ interface Props {
   barColor: string;
   additionalDumpTextToAddKeyToKeyBeUnique?: string;
   customColor?: string;
-  infoSizePercentage?: number;
+  infoSizePercentage?: number | "full";
 }
 
 const LineChartWithBar = ({
@@ -66,7 +66,7 @@ const LineChartWithBar = ({
   xAxisDataKey,
   data,
   title,
-  modelInfo,
+  modalInfo,
   additionalDumpTextToAddKeyToKeyBeUnique = "",
   defultSelectedRange = "all",
   showMonthly = false,
@@ -174,15 +174,15 @@ const LineChartWithBar = ({
       display="flex"
       flex={2}
       flexDir={
-        spanItem["2xl"] !== 3
+        spanItem["2xl"] !== 3 || infoSizePercentage === "full"
           ? "column-reverse"
           : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
       }
     >
       <ModalInfo
-        modalInfo={modelInfo}
+        modalInfo={modalInfo}
         infoSizePercentage={infoSizePercentage}
-        largeSpanSize={spanItem["2xl"]}
+        largeSpanSize={baseSpan}
       />
       <Box
         flex={1}
@@ -234,7 +234,7 @@ const LineChartWithBar = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

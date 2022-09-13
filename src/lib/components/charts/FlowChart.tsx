@@ -25,14 +25,14 @@ export interface ISankeyChart {
   }[];
 }
 interface Props {
-  modelInfo: string;
+  modalInfo: string;
   title: string;
   tooltipTitle: string;
   data: ISankeyChart;
   baseSpan?: number;
   queryLink?: string;
   customColor?: string;
-  infoSizePercentage?: number;
+  infoSizePercentage?: number | "full";
 }
 
 const FlowChart = ({
@@ -40,8 +40,8 @@ const FlowChart = ({
   queryLink,
   data,
   title,
-  modelInfo,
-  infoSizePercentage=50,
+  modalInfo,
+  infoSizePercentage = 50,
   customColor = "var(--chakra-colors-green-300)",
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
@@ -64,15 +64,15 @@ const FlowChart = ({
       display="flex"
       flex={2}
       flexDir={
-        spanItem["2xl"] !== 3
+        spanItem["2xl"] !== 3 || infoSizePercentage === "full"
           ? "column-reverse"
           : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
       }
     >
       <ModalInfo
-        modalInfo={modelInfo}
+        modalInfo={modalInfo}
         infoSizePercentage={infoSizePercentage}
-        largeSpanSize={spanItem["2xl"]}
+        largeSpanSize={baseSpan}
       />
       <Box
         flex={1}
@@ -105,73 +105,74 @@ const FlowChart = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
-        <Box p={"0"} />
-        <ResponsiveSankey
-          data={data}
-          margin={{ top: 32, right: 32, bottom: 32, left: 32 }}
-          sort="input"
-          colors={{ scheme: "paired" }}
-          nodeOpacity={1}
-          nodeHoverOthersOpacity={0.6}
-          nodeThickness={28}
-          nodeInnerPadding={2}
-          nodeSpacing={38}
-          nodeBorderWidth={3}
-          nodeBorderColor="#4444"
-          nodeBorderRadius={3}
-          linkOpacity={1}
-          linkHoverOpacity={0.8}
-          linkHoverOthersOpacity={0.1}
-          linkContract={2}
-          linkBlendMode="lighten"
-          enableLinkGradient={true}
-          labelPosition="outside"
-          labelPadding={14}
-          labelOrientation="vertical"
-          labelTextColor="#ffffff"
-          valueFormat=" >-.2f"
-          legends={[
-            {
-              anchor: "bottom-right",
-              direction: "column",
-              translateX: 130,
-              itemWidth: 100,
-              itemHeight: 14,
-              itemDirection: "right-to-left",
-              itemsSpacing: 2,
-              itemTextColor: "#999",
-              symbolSize: 14,
-              effects: [
-                {
-                  on: "hover",
-                  style: {
-                    itemTextColor: "#000",
+        <Box height={"380px"} p={"0"}>
+          <ResponsiveSankey
+            data={data}
+            margin={{ top: 32, right: 32, bottom: 32, left: 32 }}
+            sort="input"
+            colors={{ scheme: "paired" }}
+            nodeOpacity={1}
+            nodeHoverOthersOpacity={0.6}
+            nodeThickness={28}
+            nodeInnerPadding={2}
+            nodeSpacing={38}
+            nodeBorderWidth={3}
+            nodeBorderColor="#4444"
+            nodeBorderRadius={3}
+            linkOpacity={1}
+            linkHoverOpacity={0.8}
+            linkHoverOthersOpacity={0.1}
+            linkContract={2}
+            linkBlendMode="lighten"
+            enableLinkGradient={true}
+            labelPosition="outside"
+            labelPadding={14}
+            labelOrientation="vertical"
+            labelTextColor="#ffffff"
+            valueFormat=" >-.2f"
+            legends={[
+              {
+                anchor: "bottom-right",
+                direction: "column",
+                translateX: 130,
+                itemWidth: 100,
+                itemHeight: 14,
+                itemDirection: "right-to-left",
+                itemsSpacing: 2,
+                itemTextColor: "#999",
+                symbolSize: 14,
+                effects: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemTextColor: "#000",
+                    },
+                  },
+                ],
+              },
+            ]}
+            theme={{
+              background: "transparent",
+              textColor: "white",
+              axis: {
+                legend: {
+                  text: {
+                    fill: "black",
                   },
                 },
-              ],
-            },
-          ]}
-          theme={{
-            background: "transparent",
-            textColor: "white",
-            axis: {
-              legend: {
-                text: {
-                  fill: "black",
+              },
+              tooltip: {
+                container: {
+                  background: "#232323",
+                  fontSize: 15,
                 },
               },
-            },
-            tooltip: {
-              container: {
-                background: "#232323",
-                fontSize: 15,
-              },
-            },
-          }}
-        />
+            }}
+          />
+        </Box>
       </Box>
     </GridItem>
   );

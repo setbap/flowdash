@@ -27,7 +27,7 @@ import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
 
 interface Props {
   baseSpan?: number;
-  modelInfo: string;
+  modalInfo: string;
   xAxisDataKey: string;
   title: string;
   data: any[];
@@ -53,7 +53,7 @@ const MultiLineChartSeprate = ({
   yAxisData,
   data,
   title,
-  modelInfo,
+  modalInfo,
   defultSelectedRange = "all",
   chartColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"],
 }: Props) => {
@@ -182,7 +182,7 @@ const MultiLineChartSeprate = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

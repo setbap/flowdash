@@ -37,7 +37,7 @@ const BarGraph = ({
   values,
   baseSpan = 1,
   labels,
-  modelInfo,
+  modalInfo,
   isNotDate = false,
   monthlyValues,
   extraInfoToTooltip,
@@ -58,13 +58,13 @@ const BarGraph = ({
   isNotDate?: boolean;
   monthlyValues?: any[];
   values: any[];
-  modelInfo: string;
+  modalInfo: string;
   baseSpan?: number;
   isSeprate?: boolean;
   queryLink?: string;
   extraInfoToTooltip?: string;
   labels: { key: string; color: string }[];
-  infoSizePercentage?: number;
+  infoSizePercentage?: number | "full";
 }) => {
   const hasMonthly = !isNotDate && monthlyValues && monthlyValues.length > 0;
   const [chartData, setChartData] = useState(
@@ -144,18 +144,19 @@ const BarGraph = ({
       borderRadius={"2xl"}
       width="100%"
       colSpan={spanItem}
+      minHeight="auto"
       display="flex"
       flex={2}
       flexDir={
-        spanItem["2xl"] !== 3
+        spanItem["2xl"] !== 3 || infoSizePercentage === "full"
           ? "column-reverse"
           : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
       }
     >
       <ModalInfo
-        modalInfo={modelInfo}
+        modalInfo={modalInfo}
         infoSizePercentage={infoSizePercentage}
-        largeSpanSize={spanItem["2xl"]}
+        largeSpanSize={baseSpan}
       />
 
       <Box
@@ -208,12 +209,11 @@ const BarGraph = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />
-
-        <ResponsiveContainer width={"100%"}>
+        <ResponsiveContainer height={425} width={"100%"}>
           <BarChart data={chartData} className="mt-1 mb-2">
             <CartesianGrid
               style={{ stroke: "rgba(110,110,110,1)", opacity: 0.15 }}

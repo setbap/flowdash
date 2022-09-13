@@ -177,7 +177,7 @@ const ChartBox = ({
       <ModalInfo
         modalInfo={modelInfo}
         infoSizePercentage={infoSizePercentage}
-        largeSpanSize={spanItem["2xl"]}
+        largeSpanSize={baseSpan}
       />
       <Box
         flex={1}

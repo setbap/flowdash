@@ -23,12 +23,13 @@
   queryLink="https://app.flipsidecrypto.com/velocity/queries/6fa15eba-c264-4b97-8557-f1cf103f801e"
   data={mostDappsAndContractWithMostUSDTUSNUSDC.usn}
   tooltipTitle=""
-  modelInfo=""
+  modalInfo=""
   title="which dapps and addresses hold the majority of USN?"
   nameKey="Contract"
   dataKey="USN amount"
 />
 ```
+
 **Line Chart**
 
 ```js
@@ -37,7 +38,7 @@
   data={dailyTXInformationData}
   queryLink="https://app.flipsidecrypto.com/velocity/queries/4b25478f-c64c-4ac8-9e42-cc5ed0660290"
   tooltipTitle="Number of unique address"
-  modelInfo="Number of unique address"
+  modalInfo="Number of unique address"
   title="Number of daily unique address"
   baseSpan={3}
   areaDataKey="Unique Address"
@@ -50,7 +51,7 @@
 ```js
 <BarGraph
   queryLink="https://app.flipsidecrypto.com/velocity/queries/3315b247-9f09-43c2-8533-f7dcf0f45722"
-  modelInfo={`modal info`}
+  modalInfo={`modal info`}
   values={top100UsedContracts}
   title="Top 100 Contracts/Platforms interacted on Near"
   dataKey="Name"
@@ -90,7 +91,7 @@
   data={numberOfTXAndUserOnRefFi}
   queryLink="https://app.flipsidecrypto.com/velocity/queries/4a3c1109-69ce-4502-b3ad-ca4af1022855"
   tooltipTitle=""
-  modelInfo=""
+  modalInfo=""
   title="Number of transactions on Ref finance"
   baseSpan={3}
   barDataKey="TX Count"
@@ -104,7 +105,7 @@
 ```js
 <FlowChart
   data={finalSwapFromStablecoinsToOthers}
-  modelInfo=""
+  modalInfo=""
   title="Swap from Stablecoins to Others"
   tooltipTitle="This chart shows the flow between stablecoins and top tokens based on volume in Ref finance. 
 As you can see, The stablecoins swapped to NEAR more than others."

@@ -156,7 +156,7 @@ const Governance = ({
             queryLink={topNFTVolume.key}
             title={topNFTVolume.title}
             baseSpan={3}
-            modelInfo={`
+            modalInfo={`
 ## modal info
 
 It’s a know fact that a reader will be distracted by readable text when looking at any type of layout. Because of this, the printing and typesetting industry uses lorem ipsum. Lorem ipsum is a dummy language used as filler text since the 1500s.
@@ -166,7 +166,7 @@ It’s a know fact that a reader will be distracted by readable text when lookin
           />
           <BarGraph
             queryLink={topNFTIDBaseSaleNumber.key}
-            modelInfo={`
+            modalInfo={`
 ## modal info
 
 Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
@@ -178,7 +178,7 @@ Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor p
             isNotDate
             oyLabel="Sales Count"
             oxLabel="Dapps Name"
-            infoSizePercentage={40}
+            infoSizePercentage={"full"}
             labels={[
               {
                 key: "Number of Sale",

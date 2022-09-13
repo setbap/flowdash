@@ -26,6 +26,7 @@ import { GRID_ITEM_SIZE } from "./template";
 import ChartSpanMenu from "../basic/ChartSpanMenu";
 import ChartHeader from "../basic/ChartHeader";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
+import { ModalInfo } from "../basic/ModalInfo";
 
 const StackedAreaChart = ({
   title,
@@ -35,13 +36,14 @@ const StackedAreaChart = ({
   values,
   baseSpan = 1,
   labels,
-  modelInfo,
+  modalInfo,
   isNotDate = false,
   monthlyValues,
   extraInfoToTooltip,
   defualtTime = "day",
   queryLink,
   dataPrecision = 2,
+  infoSizePercentage = 50,
 }: {
   defualtTime?: "day" | "month";
   title: string;
@@ -51,12 +53,13 @@ const StackedAreaChart = ({
   isNotDate?: boolean;
   monthlyValues?: any[];
   values: any[];
-  modelInfo: string;
+  modalInfo: string;
   baseSpan?: number;
   queryLink?: string;
   extraInfoToTooltip?: string;
   dataPrecision?: number;
   labels: { key: string; color: string }[];
+  infoSizePercentage?: number | "full";
 }) => {
   const hasMonthly = !isNotDate && monthlyValues && monthlyValues.length > 0;
   const [chartData, setChartData] = useState(
@@ -136,8 +139,20 @@ const StackedAreaChart = ({
       _hover={{ boxShadow: "var(--chakra-shadows-lg)" }}
       borderRadius={"2xl"}
       width="100%"
+      flex={2}
+      flexDir={
+        spanItem["2xl"] !== 3 || infoSizePercentage === "full"
+          ? "column-reverse"
+          : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
+      }
     >
+      <ModalInfo
+        modalInfo={modalInfo}
+        infoSizePercentage={infoSizePercentage}
+        largeSpanSize={baseSpan}
+      />
       <Box
+        flex={1}
         px="4"
         pt="4"
         pb={"2"}
@@ -185,7 +200,7 @@ const StackedAreaChart = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

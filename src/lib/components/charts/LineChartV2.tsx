@@ -30,7 +30,7 @@ import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
 import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
-  modelInfo: string;
+  modalInfo: string;
   xAxisDataKey: string;
   areaDataKey: string;
   title: string;
@@ -45,7 +45,7 @@ interface Props {
   defultDateView?: "month" | "day";
   showMonthly?: boolean;
   queryLink?: string;
-  infoSizePercentage?: number;
+  infoSizePercentage?: number | "full";
 }
 
 const LineChartV2 = ({
@@ -60,7 +60,7 @@ const LineChartV2 = ({
   xAxisDataKey,
   data,
   title,
-  modelInfo,
+  modalInfo,
   defultSelectedRange = "all",
   showMonthly = true,
   infoSizePercentage = 50,
@@ -140,6 +140,7 @@ const LineChartV2 = ({
   return (
     <GridItem
       rowSpan={1}
+      colSpan={spanItem}
       color={textColor}
       bgColor={bgCard}
       shadow="base"
@@ -147,19 +148,17 @@ const LineChartV2 = ({
       _hover={{ boxShadow: "var(--chakra-shadows-lg)" }}
       borderRadius={"2xl"}
       width="100%"
-      colSpan={spanItem}
-      display="flex"
       flex={2}
-      flexDir={
-        spanItem["2xl"] !== 3
+      flexDirection={
+        spanItem["2xl"] !== 3 || infoSizePercentage === "full"
           ? "column-reverse"
           : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
       }
     >
       <ModalInfo
-        modalInfo={modelInfo}
+        modalInfo={modalInfo}
         infoSizePercentage={infoSizePercentage}
-        largeSpanSize={spanItem["2xl"]}
+        largeSpanSize={baseSpan}
       />
       <Box
         flex={1}
@@ -211,7 +210,7 @@ const LineChartV2 = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

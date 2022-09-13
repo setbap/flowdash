@@ -4,8 +4,6 @@ import {
   GridItem,
   MenuList,
   MenuDivider,
-  MenuItemOption,
-  MenuOptionGroup,
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
@@ -13,21 +11,17 @@ import { ResponsiveCalendar } from "@nivo/calendar";
 
 import { useState } from "react";
 import moment from "moment";
-import millify from "millify";
 
 import { GRID_ITEM_SIZE } from "./template";
 import ChartSpanMenu from "../basic/ChartSpanMenu";
 import ChartHeader from "../basic/ChartHeader";
-import { FilterDayBarBox } from "../basic/FilterDayBar";
 import { AnimatePresence } from "framer-motion";
 import MotionBox from "../motion/Box";
 import LinkToSourceMenuItem from "../basic/LinkToSourceMenuItem";
-import TrendLine from "./TrendLine";
-import MDRenderer from "../basic/MDRenderer";
 import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props {
-  modelInfo?: string;
+  modalInfo?: string;
   xAxisDataKey: string;
   areaDataKey: string;
   title: string;
@@ -45,7 +39,7 @@ interface Props {
   customColor?: string;
   years: number[];
   selectedYear: number;
-  infoSizePercentage?: number;
+  infoSizePercentage?: number | "full";
 }
 
 const CalendarChart = ({
@@ -60,7 +54,7 @@ const CalendarChart = ({
   disclaimer,
   data,
   title,
-  modelInfo = "",
+  modalInfo = "",
   infoSizePercentage = 50,
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
@@ -99,15 +93,15 @@ const CalendarChart = ({
       display="flex"
       flex={2}
       flexDir={
-        spanItem["2xl"] !== 3
+        spanItem["2xl"] !== 3 || infoSizePercentage === "full"
           ? "column-reverse"
           : ["column-reverse", "column-reverse", "column-reverse", "row", "row"]
       }
     >
       <ModalInfo
-        modalInfo={modelInfo}
+        modalInfo={modalInfo}
         infoSizePercentage={infoSizePercentage}
-        largeSpanSize={spanItem["2xl"]}
+        largeSpanSize={baseSpan}
       />
       <Box
         flex={1}
@@ -141,85 +135,81 @@ const CalendarChart = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"0"} />
-        <ResponsiveCalendar
-          data={chartData.map((d: any) => ({
-            value: d[areaDataKey],
-            day: moment(d[xAxisDataKey]).format("YYYY-MM-DD"),
-          }))}
-          from={moment(`${+selectedDate}-01-01`).toDate()}
-          to={moment(`${+selectedDate + 1}-01-01`)
-            .subtract(1, "day")
-            .toDate()}
-          emptyColor="#aaa2"
-          colors={[
-            "#cfc",
-            "#bfb",
-            "#afa",
-            "#9f9",
-            "#8f8",
-            "#7f7",
-            "#6f6",
-            "#5f5",
-            "#4f4",
-            "#3f3",
-            "#2f2",
-            "#1f1",
-            "#0f0",
-            // "#e8c1a0",
-            // "#a57560",
-            // "#b47560",
-            // "#c47560",
-            // "#e47560",
-            // "#f07560",
-            // "#ff7560",
-          ]}
-          yearSpacing={0}
-          monthBorderColor="transparent"
-          dayBorderWidth={0}
-          monthSpacing={16}
-          yearLegendOffset={9}
-          minValue="auto"
-          maxValue={"auto"}
-          monthBorderWidth={0}
-          daySpacing={4}
-          dayBorderColor="transparent"
-          theme={{
-            background: "transparent",
-            textColor: "white",
-            axis: {
-              legend: {
-                text: {
-                  fill: "black",
+        <Box height={425} width="full">
+          <ResponsiveCalendar
+            data={chartData.map((d: any) => ({
+              value: d[areaDataKey],
+              day: moment(d[xAxisDataKey]).format("YYYY-MM-DD"),
+            }))}
+            from={moment(`${+selectedDate}-01-01`).toDate()}
+            to={moment(`${+selectedDate + 1}-01-01`)
+              .subtract(1, "day")
+              .toDate()}
+            emptyColor="#aaa2"
+            colors={[
+              "#cfc",
+              "#bfb",
+              "#afa",
+              "#9f9",
+              "#8f8",
+              "#7f7",
+              "#6f6",
+              "#5f5",
+              "#4f4",
+              "#3f3",
+              "#2f2",
+              "#1f1",
+              "#0f0",
+            ]}
+            yearSpacing={0}
+            monthBorderColor="transparent"
+            dayBorderWidth={0}
+            monthSpacing={16}
+            yearLegendOffset={9}
+            minValue="auto"
+            maxValue={"auto"}
+            monthBorderWidth={0}
+            daySpacing={4}
+            dayBorderColor="transparent"
+            theme={{
+              background: "transparent",
+              textColor: "white",
+              axis: {
+                legend: {
+                  text: {
+                    fill: "black",
+                  },
                 },
               },
-            },
-            tooltip: {
-              container: {
-                background: "#232323",
+              tooltip: {
+                container: {
+                  background: "#232323",
 
-                fontSize: 15,
+                  fontSize: 15,
+                },
               },
-            },
-          }}
-          legends={[
-            {
-              anchor: "bottom-right",
-              direction: "row",
-              translateY: 36,
-              itemCount: 2,
-              itemWidth: 42,
-              itemTextColor: "white",
-              itemHeight: 36,
+            }}
+            legends={[
+              {
+                anchor: "bottom-right",
+                direction: "row",
+                translateY: 36,
+                itemCount: 2,
+                itemWidth: 42,
+                itemTextColor: "white",
+                itemHeight: 36,
 
-              itemsSpacing: 14,
-              itemDirection: "right-to-left",
-            },
-          ]}
-        />
+                itemsSpacing: 14,
+                itemDirection: "right-to-left",
+              },
+            ]}
+          />
+        </Box>
+
         <AnimatePresence>
           {!isNotDate && defultViewSetting === "day" && (
             <MotionBox

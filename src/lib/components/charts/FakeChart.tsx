@@ -31,7 +31,7 @@ const FakeChart = ({
 
   baseSpan = 1,
   labels,
-  modelInfo,
+  modalInfo,
 
   defualtTime = "day",
   queryLink,
@@ -39,7 +39,7 @@ const FakeChart = ({
   defualtTime?: "day" | "month";
   title: string;
 
-  modelInfo: string;
+  modalInfo: string;
   baseSpan?: number;
   queryLink?: string;
   labels: any[];
@@ -103,7 +103,7 @@ const FakeChart = ({
               />
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"1"} />

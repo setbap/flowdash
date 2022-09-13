@@ -7,11 +7,11 @@ import { IShowTableProps, ShowTable } from "./ShowTable";
 import { ModalInfo } from "../basic/ModalInfo";
 
 interface Props<T> extends IShowTableProps<T> {
-  modelInfo: string;
+  modalInfo: string;
   title: string;
   queryLink?: string;
   baseSpan: number;
-  infoSizePercentage?: number;
+  infoSizePercentage?: number | "full";
 }
 
 function TableBox<T>({
@@ -21,7 +21,7 @@ function TableBox<T>({
   data,
   columnsDef,
   title,
-  modelInfo,
+  modalInfo,
 }: Props<T>) {
   const [spanItem, _] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
 
@@ -45,7 +45,7 @@ function TableBox<T>({
       flexDir={"column-reverse"}
     >
       <ModalInfo
-        modalInfo={modelInfo}
+        modalInfo={modalInfo}
         infoSizePercentage={infoSizePercentage}
         largeSpanSize={spanItem["2xl"] + 1}
       />
@@ -70,7 +70,7 @@ function TableBox<T>({
               )}
             </MenuList>
           }
-          modalInfo={modelInfo}
+          modalInfo={modalInfo}
           title={title}
         />
         <Box p={"0"} />

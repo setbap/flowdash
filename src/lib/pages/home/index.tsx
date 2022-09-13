@@ -1,6 +1,5 @@
-import { Box, GridItem, Heading, Link, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import BarGraph from "lib/components/charts/BarGraph";
-import DonutChart from "lib/components/charts/DonutChart";
 import LineChartWithBar from "lib/components/charts/LineChartWithBar";
 import StackedAreaChart from "lib/components/charts/StackedAreaGraph";
 import { StatsCard } from "lib/components/charts/StateCard";
@@ -10,7 +9,6 @@ import names from "lib/utility/names";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { HomeProps } from "pages";
-import { FiExternalLink } from "react-icons/fi";
 
 const CalendarChart: any = dynamic(
   () => import("../../components/charts/CalendarChart"),
@@ -44,7 +42,7 @@ const Governance = ({
   return (
     <>
       <NextSeo
-        title={`${names.APP_NAME} (Dapss - Ref) | Business Intelligence Dashboard for ${names.BLOCKCHAIN}`}
+        title={`${names.APP_NAME}  | Business Intelligence Dashboard for ${names.BLOCKCHAIN}`}
         description="Track the latest stats and trends on ${names.BLOCKCHAIN}"
         openGraph={{
           url: `https://${names.SITE_URL}/`,
@@ -66,14 +64,17 @@ const Governance = ({
       <Box mx={"auto"} px={{ base: 6, sm: 2, md: 8 }}>
         <SimpleGrid
           my={"6"}
-          columns={{ base: 1, md: 2, lg: 2, "2xl": 3 }}
+          columns={{ base: 1, md: 2, lg: 3, "2xl": 4 }}
           spacing={{ base: 5, lg: 8 }}
         >
           <StatsCard
+            rotate="180deg"
+            top="-20%"
+            comment="Test"
             title={dailyInformation.title.split(",")[0]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Sales Count"]}
-            status={"inc"}
+            status={"dec"}
           />
 
           <StatsCard
@@ -110,7 +111,11 @@ const Governance = ({
             seprateNegetive
             isNotDate
             queryLink={percentChangeOverTime.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             values={percentChangeOverTime.data}
             title={percentChangeOverTime.title.split(",")[0]}
             dataKey="Month"
@@ -129,7 +134,11 @@ const Governance = ({
             seprateNegetive
             isNotDate
             queryLink={percentChangeOverTime.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             values={percentChangeOverTime.data}
             title={percentChangeOverTime.title.split(",")[1]}
             dataKey="Month"
@@ -148,7 +157,11 @@ const Governance = ({
             seprateNegetive
             isNotDate
             queryLink={percentChangeOverTime.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             values={percentChangeOverTime.data}
             title={percentChangeOverTime.title.split(",")[2]}
             dataKey="Month"
@@ -167,7 +180,11 @@ const Governance = ({
             seprateNegetive
             isNotDate
             queryLink={percentChangeOverTime.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             values={percentChangeOverTime.data}
             title={percentChangeOverTime.title.split(",")[3]}
             dataKey="Month"
@@ -186,10 +203,15 @@ const Governance = ({
 
           <StackedAreaChart
             queryLink={dailyInformation.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             values={dailyInformation.data}
             title={dailyInformation.title.split(",")[3]}
             dataKey="Day"
+            infoSizePercentage={"full"}
             baseSpan={3}
             oyLabel="Count"
             oxLabel=""
@@ -207,11 +229,16 @@ const Governance = ({
 
           <BarGraph
             queryLink={dailyInformation.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             values={dailyInformation.data}
             title={dailyInformation.title.split(",")[5]}
             dataKey="Day"
             baseSpan={3}
+            infoSizePercentage={"full"}
             oyLabel="Count"
             oxLabel=""
             labels={[
@@ -224,11 +251,16 @@ const Governance = ({
           <CalendarChart
             disclaimer={"darker color has more value"}
             queryLink={dailyInformation.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             years={[2022]}
             data={dailyInformation.data}
             title={dailyInformation.title.split(",")[5]}
             tooltipTitle=""
+            infoSizePercentage={"full"}
             baseSpan={3}
             areaDataKey="Sales Count"
             xAxisDataKey="Day"
@@ -239,10 +271,15 @@ const Governance = ({
             customColor={colors[1]}
             barColor={colors[3]}
             queryLink={dailyInformation.key}
-            modelInfo={""}
+            modalInfo={`
+## Test
+
+Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor pickled pariatur, McSweeney’s squid. Craft beer pour-over bitters blog, direct trade bespoke sapiente. Carles Schlitz ethnic, irony hella Odd Future twee master cleanse accusamus anim. Magna bitters flannel, dreamcatcher tousled sustainable occupy ad reprehenderit pariatur aesthetic readymade vegan Truffaut. Brooklyn McSweeney’s helvetica next level. Tofu Neutra sartorial Cosby sweater, fingerstache magna fixie cred wayfarers Banksy occupy swag Williamsburg ea.
+            `}
             data={dailyInformation.data}
             title={dailyInformation.title.split(",")[6]}
             baseSpan={3}
+            infoSizePercentage={"full"}
             barDataKey="Sales Volume"
             lineDataKey="AVG Sales Volume"
             xAxisDataKey="Day"
