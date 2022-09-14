@@ -117,6 +117,7 @@ const NFTSellInformation = ({
         }}
       />
       <Box mx={"auto"} w="full" pt="4" px={{ base: 6, sm: 2, md: 8 }}>
+        {/*
         <Flex wrap="wrap" direction="row">
           {Object.keys(nftSellInformation.data.metadata)
             .filter((key) => metadata_name.includes(key))
@@ -133,7 +134,7 @@ const NFTSellInformation = ({
                 >
                   {key.split("_").join(" ")} :
                   <strong>
-                    {/* @ts-ignore */}
+                    {/* @ts-ignore 
                     {nftSellInformation.data.metadata[key as any]}
                   </strong>
                 </Box>
@@ -147,7 +148,7 @@ moment description
 __${nftSellInformation.data.metadata.moment_description}__
 
 `}
-        </TextBox>
+        </TextBox> */}
         <SimpleGrid
           position={"relative"}
           transition={"all 0.9s ease-in-out"}

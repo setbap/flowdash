@@ -17,16 +17,19 @@ import { useRouter } from "next/router";
 
 function NFT_INFORMATION() {
   const rounter = useRouter();
-  const id = rounter.query.id ?? 800;
+  const id = rounter.query.id;
 
   const query = useQuery(["nfts_information", id], async () => {
     const fetchedData = await Promise.all([
       fetch(`/api/nfts_information/${id}`),
-      fetch(`/api/nft_metadata/${id}`),
+      // fetch(`/api/nft_metadata/${id}`),
     ]);
     const saleInfo: QueryResultSet = await fetchedData[0].json();
-    const nftMetadata: QueryResultSet = await fetchedData[1].json();
-    return { saleInfo, nftMetadata };
+    // const nftMetadata: QueryResultSet = await fetchedData[1].json();
+    return {
+      saleInfo,
+      // , nftMetadata
+    };
   });
 
   if (query.isSuccess && query.data.saleInfo.status === "finished") {
@@ -38,7 +41,8 @@ function NFT_INFORMATION() {
               //@ts-ignore
               sale: query.data.saleInfo.records as INFTSaleInformation[],
               //@ts-ignore
-              metadata: query.data.nftMetadata.records[0],
+              metadata: {},
+              // query.data.nftMetadata.records[0],
             },
 
             key: "e4960d14-686d-45ac-851a-f13283e9a473",
