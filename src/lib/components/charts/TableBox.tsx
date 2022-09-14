@@ -77,6 +77,7 @@ function TableBox<T>({
         />
         <Box p={"0"} />
         <ShowTable
+          tablePageSize={tablePageSize}
           onRowClick={onRowClick}
           customHeaderColor={"#000"}
           data={data}
