@@ -22,6 +22,7 @@ const colors = [
 const PlayerAnalysis = ({
   topPlayerBaseOnVolumeSales,
   topPlayerBaseOnNumberSales,
+  topPlayerWithMostImpactOnSaleVolume,
 }: PlayerAnalysisProps): JSX.Element => {
   return (
     <>
@@ -88,6 +89,25 @@ const PlayerAnalysis = ({
                 color: colors[5],
               },
             ]}
+          />
+          <BarGraph
+            queryLink={topPlayerWithMostImpactOnSaleVolume.key}
+            modalInfo={""}
+            values={topPlayerWithMostImpactOnSaleVolume.data}
+            title={topPlayerWithMostImpactOnSaleVolume.title}
+            dataKey="Name"
+            hideLegend
+            baseSpan={3}
+            isNotDate
+            oyLabel="Sales Count"
+            oxLabel=""
+            infoSizePercentage={"full"}
+            labels={topPlayerWithMostImpactOnSaleVolume.categories.map(
+              (item, index) => ({
+                key: item,
+                color: colors[index % colors.length],
+              })
+            )}
           />
         </SimpleGrid>
       </Box>

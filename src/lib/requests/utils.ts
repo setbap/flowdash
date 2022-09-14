@@ -24,6 +24,7 @@ export const getSimpleArrayData = async <T, R = null>(
   let fetchedData: T[] = await res.json();
   if (sortKey !== null) {
     fetchedData = fetchedData.sort((a, b) =>
+      // @ts-ignore
       moment(a[sortKey]).isAfter(moment(b[sortKey])) ? 1 : -1
     );
   }

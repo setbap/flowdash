@@ -13,3 +13,9 @@ export interface ITopNFTBasedOnVolume {
   Week: number;
   "Video Link": string;
 }
+
+export interface INFTsWithBiggestImpactSaleVolume {
+  Day: string;
+  Category: string;
+  "Total Volume of Sale": number;
+}

@@ -97,7 +97,6 @@ export function ShowTable<T>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    debugTable: true,
   });
   return (
     <TableContainer pt={"2"} pb="4" w="full">

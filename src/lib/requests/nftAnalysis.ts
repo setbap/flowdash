@@ -1,8 +1,9 @@
 import {
+  INFTsWithBiggestImpactSaleVolume,
   ITopNFTBasedOnVolume,
   ITopNFTIDBaseSaleNumber,
 } from "lib/types/types/nftAnalysis";
-import { getSimpleArrayData } from "./utils";
+import { getSimpleArrayData, pivotData } from "./utils";
 
 export const getTopNFTVolume = () =>
   getSimpleArrayData<ITopNFTBasedOnVolume, ITopNFTBasedOnVolume>(
@@ -17,3 +18,44 @@ export const getTopNFTIDBaseSaleNumber = () =>
     "Top NFT ID based on number of sales",
     "Number of Sale"
   );
+
+export const getTopNFTWithMostImpactOnSaleVolume = () =>
+  getNFTsWithMostImpactOnSalesVolume(
+    "ca5ff3a5-8a31-4b15-8789-89145ce41bbe",
+    "NFTs who have the biggest impact on daily sales volume"
+  );
+
+export const getNFTsWithMostImpactOnSalesVolume = async (
+  velocityKey: string,
+  title: string
+) => {
+  const res = await fetch(
+    `https://node-api.flipsidecrypto.com/api/v2/queries/${velocityKey}/data/latest`
+  );
+  const rawData: INFTsWithBiggestImpactSaleVolume[] = await res.json();
+  const categories = Array.from(
+    new Set(
+      rawData.map((item) => {
+        return item.Category;
+      })
+    )
+  );
+  const salveVolume = pivotData(
+    rawData,
+    "Day",
+    "Category",
+    "Total Volume of Sale",
+    categories,
+    0,
+    true
+  );
+  return {
+    data: salveVolume.sort((a, b) =>
+      // @ts-ignore
+      a["Name"] > b["Name"] ? -1 : 1
+    ),
+    categories: categories,
+    title,
+    key: velocityKey,
+  };
+};

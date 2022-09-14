@@ -2,6 +2,7 @@ import {
   ITopPlayerBaseOnVolumeSales,
   ITopPlayerBaseOnNumberSales,
 } from "lib/types/types/playerAnalysis";
+import { getNFTsWithMostImpactOnSalesVolume } from "./nftAnalysis";
 import { getSimpleArrayData } from "./utils";
 
 export const getTopPlayerBaseOnVolumeSales = () =>
@@ -16,4 +17,10 @@ export const getTopPlayerBaseOnNumberSales = () =>
     "97799a60-e05a-4aca-b173-6f9288bc9af2",
     "Top players based on number of sales",
     "Number of Sale"
+  );
+
+export const getTopPlayerWithMostImpactOnSaleVolume = () =>
+  getNFTsWithMostImpactOnSalesVolume(
+    "ef990896-73a2-41dc-82c7-1e88e6aac19c",
+    "Players who have the biggest impact on daily sales volume"
   );

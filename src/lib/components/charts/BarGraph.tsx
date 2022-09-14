@@ -47,8 +47,10 @@ const BarGraph = ({
   isSeprate = false,
   seprateNegetive = false,
   infoSizePercentage = 50,
+  hideLegend = false,
 }: {
   seprateNegetive?: boolean;
+  hideLegend?: boolean;
   defualtTime?: "day" | "month";
   title: string;
   disclaimer?: string;
@@ -280,13 +282,17 @@ const BarGraph = ({
                 );
               }}
             />
-            <Legend
-              fontSize={"8px"}
-              style={{ fontSize: "7px", position: "relative" }}
-              onClick={selectBar}
-              onMouseOver={handleLegendMouseEnter}
-              onMouseOut={handleLegendMouseLeave}
-            />
+            {!hideLegend && (
+              <Legend
+                fontSize={"8px"}
+                height={40}
+                overflow="hidden"
+                style={{ fontSize: "7px", position: "relative" }}
+                onClick={selectBar}
+                onMouseOver={handleLegendMouseEnter}
+                onMouseOut={handleLegendMouseLeave}
+              />
+            )}
             {labels.map((label, index) => (
               <>
                 <defs>

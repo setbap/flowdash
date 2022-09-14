@@ -23,11 +23,12 @@ const colors = [
 const TeamAnalysis = ({
   topTeamBaseOnVolumeSales,
   topTeamBaseOnNumberSales,
+  topTeamWithMostImpactOnSaleVolume,
 }: TeamAnalysisProps): JSX.Element => {
   return (
     <>
       <NextSeo
-        title={`${names.APP_NAME} Tops | Business Intelligence Dashboard for ${names.BLOCKCHAIN}`}
+        title={`${names.APP_NAME} Team Analysis | Business Intelligence Dashboard for ${names.BLOCKCHAIN}`}
         description="Track the latest stats and trends on ${names.BLOCKCHAIN}"
         openGraph={{
           url: `https://${names.SITE_URL}/`,
@@ -89,6 +90,25 @@ const TeamAnalysis = ({
                 color: colors[5],
               },
             ]}
+          />
+          <BarGraph
+            queryLink={topTeamWithMostImpactOnSaleVolume.key}
+            modalInfo={""}
+            values={topTeamWithMostImpactOnSaleVolume.data}
+            title={topTeamWithMostImpactOnSaleVolume.title}
+            dataKey="Name"
+            hideLegend
+            baseSpan={3}
+            isNotDate
+            oyLabel="Sales Count"
+            oxLabel=""
+            infoSizePercentage={"full"}
+            labels={topTeamWithMostImpactOnSaleVolume.categories.map(
+              (item, index) => ({
+                key: item,
+                color: colors[index % colors.length],
+              })
+            )}
           />
         </SimpleGrid>
       </Box>

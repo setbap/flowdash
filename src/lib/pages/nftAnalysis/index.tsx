@@ -83,11 +83,12 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
 const NFTAnalysis = ({
   topNFTVolume,
   topNFTIDBaseSaleNumber,
+  topNFTWithMostImpactOnSaleVolume,
 }: NFTAnalysisProps): JSX.Element => {
   return (
     <>
       <NextSeo
-        title={`${names.APP_NAME} Tops | Business Intelligence Dashboard for ${names.BLOCKCHAIN}`}
+        title={`${names.APP_NAME} NFT Analysis | Business Intelligence Dashboard for ${names.BLOCKCHAIN}`}
         description="Track the latest stats and trends on ${names.BLOCKCHAIN}"
         openGraph={{
           url: `https://${names.SITE_URL}/`,
@@ -154,6 +155,25 @@ Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor p
                 color: colors[0],
               },
             ]}
+          />
+          <BarGraph
+            queryLink={topNFTWithMostImpactOnSaleVolume.key}
+            modalInfo={""}
+            values={topNFTWithMostImpactOnSaleVolume.data}
+            title={topNFTWithMostImpactOnSaleVolume.title}
+            dataKey="Name"
+            hideLegend
+            baseSpan={3}
+            isNotDate
+            oyLabel="Sales Count"
+            oxLabel=""
+            infoSizePercentage={"full"}
+            labels={topNFTWithMostImpactOnSaleVolume.categories.map(
+              (item, index) => ({
+                key: item,
+                color: colors[index % colors.length],
+              })
+            )}
           />
         </SimpleGrid>
       </Box>
