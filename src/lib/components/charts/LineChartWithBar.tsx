@@ -71,7 +71,7 @@ const LineChartWithBar = ({
   defultSelectedRange = "all",
   showMonthly = false,
   infoSizePercentage = 50,
-  customColor = "var(--chakra-colors-green-300)",
+  customColor = "#00ff00",
 }: Props) => {
   const [spanItem, setSpanItem] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
   const [defultViewSetting, setDefultViewSetting] = useState(defultDateView);
@@ -258,12 +258,12 @@ const LineChartWithBar = ({
                 <stop
                   offset="0%"
                   style={{ stopColor: barColor }}
-                  stopOpacity={0.7}
+                  stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
                   style={{ stopColor: barColor }}
-                  stopOpacity={0.3}
+                  stopOpacity={0.9}
                 />
               </linearGradient>
             </defs>
@@ -340,7 +340,7 @@ const LineChartWithBar = ({
               dataKey={lineDataKey}
               yAxisId="left"
               strokeWidth={"2"}
-              fill={`${chartColor}20`}
+              fill={`${chartColor}30`}
             />
 
             <Legend
