@@ -63,13 +63,13 @@ export interface IShowTableProps<T> {
   data: T[];
   columnsDef: ColumnDef<T>[];
   customHeaderColor: string;
-  onRowClick: (id: string) => void;
+  onRowClick?: ((id: T) => void) | null;
 }
 export function ShowTable<T>({
   data,
   columnsDef,
   customHeaderColor,
-  onRowClick,
+  onRowClick = null,
 }: IShowTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -146,7 +146,12 @@ export function ShowTable<T>({
         <Tbody>
           {table.getRowModel().rows.map((row) => (
             <Tr
-              onClick={() => onRowClick(row.id)}
+              onClick={() => {
+                if (!onRowClick) {
+                  return;
+                }
+                return onRowClick(row.original as T);
+              }}
               _hover={{ bg: "#242424" }}
               key={row.id}
             >

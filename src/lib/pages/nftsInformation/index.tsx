@@ -5,8 +5,7 @@ import { NextSeo } from "next-seo";
 import { NFTsInformationProps } from "pages/nfts_information";
 import { ColumnDef } from "@tanstack/react-table";
 import TableBox from "lib/components/charts/TableBox";
-import BarGraph from "lib/components/charts/BarGraph";
-import TableModalButton from "lib/components/basic/TableModalButton";
+import { useRouter } from "next/router";
 
 const colors = [
   "#ff5722",
@@ -118,6 +117,8 @@ const colDef: ColumnDef<INFTsInformation>[] = [
 const NFTAnalysis = ({
   allNFTsInformation,
 }: NFTsInformationProps): JSX.Element => {
+  const router = useRouter();
+
   return (
     <>
       <NextSeo
@@ -159,7 +160,7 @@ const NFTAnalysis = ({
             queryLink={allNFTsInformation.key}
             title={allNFTsInformation.title}
             baseSpan={3}
-            onRowClick={(rowNumber) => console.log(rowNumber)}
+            onRowClick={(row) => router.push(`/nft/${row["NFT ID"]}`)}
             modalInfo={`
 ## modal info
 
