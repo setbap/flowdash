@@ -29,11 +29,13 @@ interface StatsCardProps {
   top?: number | string;
   hasArrowIcon?: boolean;
   rotate?: string;
+  change?: number;
 }
 export const StatsCard = (props: StatsCardProps) => {
   const bgCard = useColorModeValue("white", "#191919");
   const {
     title,
+    change = null,
     hasArrowIcon = true,
     rotate = "0deg",
     top = "20%",
@@ -162,27 +164,42 @@ export const StatsCard = (props: StatsCardProps) => {
           </Box>
         </Box>
       </StatNumber>
-      {hasArrowIcon && (
-        <Box
-          width={"35%"}
-          h="full"
-          opacity={0.2}
-          bg={statusColor}
-          inset="0"
-          clipPath={"polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);"}
-          left={"65%"}
-          pos="absolute"
-        ></Box>
-      )}
-      {hasArrowIcon && (
+
+      <Box
+        width={"35%"}
+        h="full"
+        opacity={0.2}
+        bg={statusColor}
+        inset="0"
+        clipPath={"polygon(20% 0%, 100% 0, 100% 100%, 0% 100%);"}
+        left={"65%"}
+        pos="absolute"
+      ></Box>
+      <Box
+        width={"30%"}
+        h="full"
+        inset="0"
+        left={"70%"}
+        top={top}
+        transform="auto"
+        rotate={rotate}
+        pos="absolute"
+        zIndex={1}
+        display="flex"
+        justifyContent={"center"}
+        alignItems="center"
+        color={"blackAlpha.900"}
+        scale="1.75"
+      >
+        {hasArrowIcon && <HiArrowSmUp opacity={0.2} fontSize={"11rem"} />}
+      </Box>
+      {!!change && (
         <Box
           width={"30%"}
           h="full"
           inset="0"
           left={"70%"}
-          top={top}
-          transform="auto"
-          rotate={rotate}
+          top={"0"}
           pos="absolute"
           zIndex={1}
           display="flex"
@@ -190,7 +207,14 @@ export const StatsCard = (props: StatsCardProps) => {
           alignItems="center"
           color={statusColor}
         >
-          <HiArrowSmUp opacity={0.2} fontSize={"12rem"} />
+          <Box d="flex" alignItems={"baseline"}>
+            <Box fontSize={"3xl"} me="1px" fontWeight="bold">
+              {change.toString().slice(0, 1)}
+            </Box>
+            <Box verticalAlign={"baseline"} fontSize={"md"} fontWeight="bold">
+              {change.toString().slice(1)}
+            </Box>
+          </Box>
         </Box>
       )}
     </Stat>

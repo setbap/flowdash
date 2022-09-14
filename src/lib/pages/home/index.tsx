@@ -75,16 +75,17 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
           spacing={{ base: 5, lg: 8 }}
         >
           <StatsCard
+            hasArrowIcon={false}
             rotate="180deg"
             top="-20%"
-            comment="Test"
             title={dailyInformation.title.split(",")[0]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Sales Count"]}
-            status={"dec"}
+            status={"inc"}
           />
 
           <StatsCard
+            hasArrowIcon={false}
             title={dailyInformation.title.split(",")[1]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Unique Buyers"]}
@@ -92,6 +93,7 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
           />
 
           <StatsCard
+            hasArrowIcon={false}
             title={dailyInformation.title.split(",")[2]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Unique Sellers"]}
@@ -99,6 +101,7 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
           />
 
           <StatsCard
+            hasArrowIcon={false}
             title={dailyInformation.title.split(",")[4]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Sales Volume"]}
