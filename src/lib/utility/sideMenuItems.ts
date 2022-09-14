@@ -6,6 +6,7 @@ import { AiFillPicture } from "react-icons/ai";
 export default [
   { name: "Home", path: "/", icon: FiHome },
   { name: "NFTs Information", path: "/nfts_information", icon: AiFillPicture },
+  { name: "Deep Dive", path: "/all_day_deep_dive", icon: DiGoogleAnalytics },
   { name: "NFT Analysis", path: "/nft_analysis", icon: DiGoogleAnalytics },
   {
     name: "Player Analysis",
