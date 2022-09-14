@@ -3,6 +3,7 @@ import { FiHome } from "react-icons/fi";
 
 export default [
   { name: "Home", path: "/", icon: FiHome },
+  { name: "NFTs Information", path: "/nfts_information", icon: FiHome },
   { name: "NFT Analysis", path: "/nft_analysis", icon: FiHome },
   { name: "Player Analysis", path: "/player_analysis", icon: FiHome },
   { name: "Team Analysis", path: "/team_analysis", icon: FiHome },

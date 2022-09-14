@@ -63,11 +63,13 @@ export interface IShowTableProps<T> {
   data: T[];
   columnsDef: ColumnDef<T>[];
   customHeaderColor: string;
+  onRowClick: (id: string) => void;
 }
 export function ShowTable<T>({
   data,
   columnsDef,
   customHeaderColor,
+  onRowClick,
 }: IShowTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -144,7 +146,11 @@ export function ShowTable<T>({
         </Thead>
         <Tbody>
           {table.getRowModel().rows.map((row) => (
-            <Tr _hover={{ bg: "#242424" }} key={row.id}>
+            <Tr
+              onClick={() => onRowClick(row.id)}
+              _hover={{ bg: "#242424" }}
+              key={row.id}
+            >
               {row.getVisibleCells().map((cell) => (
                 <Td border={"none"} p="1" key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

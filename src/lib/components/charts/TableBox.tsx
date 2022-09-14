@@ -22,6 +22,7 @@ function TableBox<T>({
   columnsDef,
   title,
   modalInfo,
+  onRowClick,
 }: Props<T>) {
   const [spanItem, _] = useState(GRID_ITEM_SIZE[baseSpan - 1]);
 
@@ -75,6 +76,7 @@ function TableBox<T>({
         />
         <Box p={"0"} />
         <ShowTable
+          onRowClick={onRowClick}
           customHeaderColor={"#000"}
           data={data}
           columnsDef={columnsDef}
