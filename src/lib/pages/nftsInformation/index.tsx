@@ -112,7 +112,7 @@ const colDef: ColumnDef<INFTsInformation>[] = [
     id: "Minimum Sales $",
     cell: (info) => (
       <Box p={2} height={"40px"}>
-        {info.getValue()}
+        {info.getValue() as string}
       </Box>
     ),
     header: (props) => <span>{props.header.id}</span>,
