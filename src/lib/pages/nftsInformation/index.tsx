@@ -149,8 +149,10 @@ const NFTAnalysis = ({
       <Box mx={"auto"} pt="4" px={{ base: 6, sm: 2, md: 8 }}>
         <TextBox>
           {`
-The above ID is the same as the id used in [__https://nflallday.com/__](https://nflallday.com/) for each moment.
-Important properties of each NFT on NBA All Day has shown.If you click on each row, you will be able to see the sales transactions of each NFT.
+
+Important properties of each NFT on NBA All Day has shown.
+
+__If you click on each row, you will be able to see the sales transactions of each NFT__.
 `}
         </TextBox>
         <SimpleGrid
@@ -166,10 +168,13 @@ Important properties of each NFT on NBA All Day has shown.If you click on each r
             queryLink={allNFTsInformation.key}
             title={allNFTsInformation.title}
             baseSpan={3}
+            tablePageSize={20}
             onRowClick={(row) =>
               router.push(`/nfts_information/${row["NFT ID"]}`)
             }
-            modalInfo={``}
+            modalInfo={`
+The above ID is the same as the id used in [__nflallday.com__](https://nflallday.com/) for each moment.
+            `}
             data={allNFTsInformation.data}
             columnsDef={colDef}
           />

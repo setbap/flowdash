@@ -121,6 +121,13 @@ export const StatsCard = (props: StatsCardProps) => {
       />
     </Tooltip>
   );
+  let splitedChange = null;
+  if (typeof change === "number") {
+    splitedChange = millify(change, {
+      precision: 1,
+      decimalSeparator: ".",
+    }).split(".");
+  }
 
   return (
     <Stat
@@ -203,7 +210,7 @@ export const StatsCard = (props: StatsCardProps) => {
           {hasArrowIcon && <HiArrowSmUp opacity={0.2} fontSize={"11rem"} />}
         </Box>
       )}
-      {change != null && (
+      {splitedChange != null && (
         <Box
           width={"30%"}
           h="full"
@@ -218,18 +225,13 @@ export const StatsCard = (props: StatsCardProps) => {
           color={statusColor}
         >
           <Box d="flex" alignItems={"baseline"}>
-            <Box fontSize={"3xl"} me="1px" fontWeight="bold">
-              {millify(change, {
-                precision: 1,
-                decimalSeparator: ".",
-              }).slice(0, change < 0 ? 2 : 1)}
+            <Box fontSize={"2xl"} me="1px" fontWeight="bold">
+              {splitedChange[0] as string}
             </Box>
-            <Box verticalAlign={"baseline"} fontSize={"md"} fontWeight="bold">
-              {millify(change, {
-                precision: 1,
-                decimalSeparator: ".",
-              }).slice(change < 0 ? 2 : 1)}
-              {changeUnit}
+            <Box verticalAlign={"baseline"} fontSize={"sm"} fontWeight="bold">
+              {splitedChange.length === 2
+                ? `.${splitedChange[1]}${changeUnit}`
+                : ""}
             </Box>
           </Box>
         </Box>

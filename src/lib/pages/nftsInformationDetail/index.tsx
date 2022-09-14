@@ -1,7 +1,19 @@
-import { Box, Button, SimpleGrid, Text, useClipboard } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  SimpleGrid,
+  Stack,
+  Text,
+  useClipboard,
+  VStack,
+} from "@chakra-ui/react";
 import {
   INFTSaleInformation,
   INFTsInformation,
+  metadata_name,
+  NFT_METADATA,
 } from "lib/types/types/nftsInformation";
 import names from "lib/utility/names";
 import { NextSeo } from "next-seo";
@@ -77,7 +89,10 @@ const colDef: ColumnDef<INFTSaleInformation>[] = [
 const NFTSellInformation = ({
   nftSellInformation,
 }: {
-  nftSellInformation: ReturnDataType<INFTSaleInformation[]>;
+  nftSellInformation: ReturnDataType<{
+    sale: INFTSaleInformation[];
+    metadata: NFT_METADATA;
+  }>;
 }): JSX.Element => {
   return (
     <>
@@ -101,8 +116,38 @@ const NFTSellInformation = ({
           cardType: "summary_large_image",
         }}
       />
-      <Box mx={"auto"} pt="4" px={{ base: 6, sm: 2, md: 8 }}>
-        {/* <TextBox>{``}</TextBox> */}
+      <Box mx={"auto"} w="full" pt="4" px={{ base: 6, sm: 2, md: 8 }}>
+        <Flex wrap="wrap" direction="row">
+          {Object.keys(nftSellInformation.data.metadata)
+            .filter((key) => metadata_name.includes(key))
+            .map((key: any) => {
+              return (
+                <Box
+                  bg={"#191919"}
+                  px={"4"}
+                  py="4"
+                  mb="3"
+                  me={"3"}
+                  rounded={"md"}
+                  key={key}
+                >
+                  {key.split("_").join(" ")} :
+                  <strong>
+                    {/* @ts-ignore */}
+                    {nftSellInformation.data.metadata[key as any]}
+                  </strong>
+                </Box>
+              );
+            })}
+        </Flex>
+        <TextBox>
+          {`
+moment description
+
+__${nftSellInformation.data.metadata.moment_description}__
+
+`}
+        </TextBox>
         <SimpleGrid
           position={"relative"}
           transition={"all 0.9s ease-in-out"}
@@ -112,12 +157,13 @@ const NFTSellInformation = ({
           spacing={{ base: 1, md: 2, lg: 4 }}
         >
           <TableBox
+            tablePageSize={20}
             customHeaderColor={colors[2]}
             queryLink={nftSellInformation.key}
             title={nftSellInformation.title}
             baseSpan={3}
             modalInfo={``}
-            data={nftSellInformation.data}
+            data={nftSellInformation.data.sale}
             columnsDef={colDef}
           />
         </SimpleGrid>

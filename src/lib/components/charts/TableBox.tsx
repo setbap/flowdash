@@ -22,6 +22,7 @@ function TableBox<T>({
   columnsDef,
   title,
   modalInfo,
+  tablePageSize,
   onRowClick,
 }: Props<T>) {
   const [spanItem, _] = useState(GRID_ITEM_SIZE[baseSpan - 1]);

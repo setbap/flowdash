@@ -63,18 +63,20 @@ export interface IShowTableProps<T> {
   data: T[];
   columnsDef: ColumnDef<T>[];
   customHeaderColor: string;
+  tablePageSize?: number;
   onRowClick?: ((id: T) => void) | null;
 }
 export function ShowTable<T>({
   data,
   columnsDef,
   customHeaderColor,
+  tablePageSize = 10,
   onRowClick = null,
 }: IShowTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: tablePageSize,
   });
 
   const columns = useMemo<ColumnDef<T>[]>(() => columnsDef, []);
@@ -241,7 +243,7 @@ export function ShowTable<T>({
             table.setPageSize(Number(e.target.value));
           }}
         >
-          {[5, 10, 20].map((pageSize) => (
+          {[10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>

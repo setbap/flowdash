@@ -20,18 +20,27 @@ function NFT_INFORMATION() {
   const id = rounter.query.id ?? 800;
 
   const query = useQuery(["nfts_information", id], async () => {
-    const fetchedData = await fetch(`/api/nfts_information/${id}`);
-    const data: QueryResultSet = await fetchedData.json();
-    return data;
+    const fetchedData = await Promise.all([
+      fetch(`/api/nfts_information/${id}`),
+      fetch(`/api/nft_metadata/${id}`),
+    ]);
+    const saleInfo: QueryResultSet = await fetchedData[0].json();
+    const nftMetadata: QueryResultSet = await fetchedData[1].json();
+    return { saleInfo, nftMetadata };
   });
 
-  if (query.isSuccess && query.data.status === "finished") {
+  if (query.isSuccess && query.data.saleInfo.status === "finished") {
     return (
       <>
         <NFTSellInformation
           nftSellInformation={{
-            //@ts-ignore
-            data: query.data.records as INFTSaleInformation[],
+            data: {
+              //@ts-ignore
+              sale: query.data.saleInfo.records as INFTSaleInformation[],
+              //@ts-ignore
+              metadata: query.data.nftMetadata.records[0],
+            },
+
             key: "e4960d14-686d-45ac-851a-f13283e9a473",
             title: "Sales tx of a NFT",
           }}
@@ -83,8 +92,8 @@ function NFT_INFORMATION() {
           )}
 
           {query.isSuccess &&
-            query.data.status === QueryStatusFinished &&
-            !query.data.records?.length && (
+            query.data.saleInfo.status === QueryStatusFinished &&
+            !query.data.saleInfo.records?.length && (
               <TxItemContainer>
                 <Text textAlign={"center"} fontSize={["md", "xl"]}>
                   We Don't Find Any ${names.BLOCKCHAIN} Transaction From This
@@ -95,7 +104,7 @@ function NFT_INFORMATION() {
 
           {(query.isError ||
             (query.isSuccess && !!query.error) ||
-            (query.isSuccess && !!query.data.error)) && (
+            (query.isSuccess && !!query.data.saleInfo.error)) && (
             <TxItemContainer>
               <Text textAlign={"center"} fontSize={["md", "xl"]}>
                 UnKnown Error Happend.

@@ -63,7 +63,7 @@ const Governance = ({
           cardType: "summary_large_image",
         }}
       />
-      <Box mx={"auto"} my={"6"} px={{ base: 6, sm: 2, md: 8 }}>
+      <Box mx={"auto"} py={"6"} px={{ base: 6, sm: 2, md: 8 }}>
         <TextBox>
           {`
 The National Football League (NFL) is a professional American football league that consists of 32 teams, divided equally between the American Football Conference (AFC) and the National Football Conference (NFC). The NFL is one of the major North American professional sports leagues and the highest professional level of American football in the world.
@@ -84,6 +84,13 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
           />
           <StatsCard
             hasArrowIcon={false}
+            title={dailyInformation.title.split(",")[4]}
+            link={dailyInformation.key}
+            stat={dailyInformation.data[0]["Total Sales Volume"]}
+            status={"inc"}
+          />
+          <StatsCard
+            hasArrowIcon={false}
             title={dailyInformation.title.split(",")[1]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Unique Buyers"]}
@@ -97,10 +104,13 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
             status={"inc"}
           />
           <StatsCard
-            hasArrowIcon={false}
-            title={dailyInformation.title.split(",")[4]}
-            link={dailyInformation.key}
-            stat={dailyInformation.data[0]["Total Sales Volume"]}
+            hasArrowIcon={true}
+            title={totalInfoCurrentAndChanges.title.split(",")[3]}
+            link={totalInfoCurrentAndChanges.key}
+            stat={totalInfoCurrentAndChanges.data[0]["Current Sales Count"]}
+            change={
+              totalInfoCurrentAndChanges.data[0]["change (%) Sales Count"]
+            }
             status={"inc"}
           />
           <StatsCard
@@ -110,16 +120,6 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
             stat={totalInfoCurrentAndChanges.data[0]["Current Sales Volume"]}
             change={
               totalInfoCurrentAndChanges.data[0]["change (%) Sales Volume"]
-            }
-            status={"inc"}
-          />
-          <StatsCard
-            hasArrowIcon={true}
-            title={totalInfoCurrentAndChanges.title.split(",")[1]}
-            link={totalInfoCurrentAndChanges.key}
-            stat={totalInfoCurrentAndChanges.data[0]["Current Unique Sellers"]}
-            change={
-              totalInfoCurrentAndChanges.data[0]["change (%) Unique Sellers"]
             }
             status={"inc"}
           />
@@ -135,11 +135,11 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
           />
           <StatsCard
             hasArrowIcon={true}
-            title={totalInfoCurrentAndChanges.title.split(",")[3]}
+            title={totalInfoCurrentAndChanges.title.split(",")[1]}
             link={totalInfoCurrentAndChanges.key}
-            stat={totalInfoCurrentAndChanges.data[0]["Current Sales Count"]}
+            stat={totalInfoCurrentAndChanges.data[0]["Current Unique Sellers"]}
             change={
-              totalInfoCurrentAndChanges.data[0]["change (%) Sales Count"]
+              totalInfoCurrentAndChanges.data[0]["change (%) Unique Sellers"]
             }
             status={"inc"}
           />

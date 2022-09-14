@@ -24,3 +24,33 @@ export interface INFTSaleInformation {
   "seller wallet": string;
   price: number;
 }
+
+export interface NFT_METADATA {
+  serial_number: number;
+  moment_tier: string;
+  total_circulation: number;
+  moment_description: string;
+  player: string;
+  team: string;
+  season: string;
+  week: string;
+  classification: string;
+  play_type: string;
+  moment_date: string;
+  series: string;
+  set_name: string;
+}
+export const metadata_name = [
+  "serial_number",
+  "moment_tier",
+  "total_circulation",
+  "player",
+  "team",
+  "season",
+  "week",
+  "classification",
+  "play_type",
+  "moment_date",
+  "series",
+  "set_name",
+];
