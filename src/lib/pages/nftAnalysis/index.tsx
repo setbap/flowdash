@@ -1,27 +1,13 @@
-import {
-  Box,
-  Button,
-  SimpleGrid,
-  useDisclosure,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from "@chakra-ui/react";
-
-import { ITopNFTBasedOnVolume } from "lib/types/types/tops";
+import { Box, SimpleGrid } from "@chakra-ui/react";
+import { ITopNFTBasedOnVolume } from "lib/types/types/nftAnalysis";
 import names from "lib/utility/names";
 import { NextSeo } from "next-seo";
-import { TopsProps } from "pages/tops";
+import { NFTAnalysisProps } from "pages/nft_analysis";
 import { ColumnDef } from "@tanstack/react-table";
-import { ShowTable } from "lib/components/charts/ShowTable";
 import TableBox from "lib/components/charts/TableBox";
 import BarGraph from "lib/components/charts/BarGraph";
 import TableModalButton from "lib/components/basic/TableModalButton";
-import LineChartWithBar from "lib/components/charts/LineChartWithBar";
+
 const colors = [
   "#ff5722",
   "#03a9f4",
@@ -94,14 +80,10 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
   },
 ];
 
-const Governance = ({
+const NFTAnalysis = ({
   topNFTVolume,
   topNFTIDBaseSaleNumber,
-  topPlayerBaseOnVolumeSales,
-  topPlayerBaseOnNumberSales,
-  topTeamBaseOnVolumeSales,
-  topTeamBaseOnNumberSales,
-}: TopsProps): JSX.Element => {
+}: NFTAnalysisProps): JSX.Element => {
   return (
     <>
       <NextSeo
@@ -173,71 +155,10 @@ Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor p
               },
             ]}
           />
-          <LineChartWithBar
-            queryLink={topPlayerBaseOnVolumeSales.key}
-            data={topPlayerBaseOnVolumeSales.data}
-            title={topPlayerBaseOnVolumeSales.title}
-            baseSpan={3}
-            isNotDate
-            showSeprate
-            barColor={colors[5]}
-            barDataKey={"Total Volume of Sale"}
-            lineDataKey={"Average price of Sale"}
-            modalInfo={""}
-            xAxisDataKey={"Player - Team"}
-          />
-          <BarGraph
-            queryLink={topPlayerBaseOnNumberSales.key}
-            values={topPlayerBaseOnNumberSales.data}
-            title={topPlayerBaseOnNumberSales.title}
-            baseSpan={3}
-            isNotDate
-            dataKey={"Player - Team"}
-            modalInfo={""}
-            oxLabel={""}
-            oyLabel={"sale count"}
-            labels={[
-              {
-                key: "Number of Sale",
-                color: colors[5],
-              },
-            ]}
-          />
-          ---
-          <LineChartWithBar
-            queryLink={topTeamBaseOnVolumeSales.key}
-            data={topTeamBaseOnVolumeSales.data}
-            title={topTeamBaseOnVolumeSales.title}
-            baseSpan={3}
-            isNotDate
-            showSeprate
-            barColor={colors[5]}
-            barDataKey={"Total Volume of Sale"}
-            lineDataKey={"Average price of Sale"}
-            modalInfo={""}
-            xAxisDataKey={"Team"}
-          />
-          <BarGraph
-            queryLink={topTeamBaseOnNumberSales.key}
-            values={topTeamBaseOnNumberSales.data}
-            title={topTeamBaseOnNumberSales.title}
-            baseSpan={3}
-            isNotDate
-            dataKey={"Team"}
-            modalInfo={""}
-            oxLabel={""}
-            oyLabel={"sale count"}
-            labels={[
-              {
-                key: "Number of Sale",
-                color: colors[5],
-              },
-            ]}
-          />
         </SimpleGrid>
       </Box>
     </>
   );
 };
 
-export default Governance;
+export default NFTAnalysis;
