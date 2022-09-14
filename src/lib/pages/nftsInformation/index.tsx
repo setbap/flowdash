@@ -95,13 +95,6 @@ const colDef: ColumnDef<INFTsInformation>[] = [
     cell: (info) => info.getValue(),
     header: (props) => <span>{props.header.id}</span>,
   },
-
-  {
-    accessorFn: (row) => row["Set Name"],
-    id: "Set Name",
-    cell: (info) => info.getValue(),
-    header: (props) => <span>{props.header.id}</span>,
-  },
   {
     accessorFn: (row) => row["Average Sales $"],
     id: "Average Sales $",
@@ -166,7 +159,7 @@ const NFTAnalysis = ({
             queryLink={allNFTsInformation.key}
             title={allNFTsInformation.title}
             baseSpan={3}
-            onRowClick={(data) => console.log(data)}
+            onRowClick={(rowNumber) => console.log(rowNumber)}
             modalInfo={`
 ## modal info
 

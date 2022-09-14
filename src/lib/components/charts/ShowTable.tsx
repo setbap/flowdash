@@ -112,10 +112,9 @@ export function ShowTable<T>({
           {table.getHeaderGroups().map((headerGroup) => (
             <Tr h={"4"} color="black" key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <Th>
+                <Th key={header.id}>
                   <Box
                     d="inline-block"
-                    key={header.id}
                     cursor={header.column.getCanSort() ? "pointer" : "default"}
                     onClick={header.column.getToggleSortingHandler()}
                   >
