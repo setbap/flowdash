@@ -26,3 +26,19 @@ export interface IPercentChangeOverTime {
   "Previous Sales Count": number;
   "change (%) Sales Count": number;
 }
+
+export interface ITotalInfoCurrentAndChange {
+  Day: string;
+  "Current Sales Volume": number;
+  "Current Unique Sellers": number;
+  "Current Unique Buyers": number;
+  "Current Sales Count": number;
+  "Previous Sales Volume": number;
+  "Previous Unique Sellers": number;
+  "Previous Unique Buyers": number;
+  "Previous Sales Count": number;
+  "change (%) Sales Volume": number;
+  "change (%) Unique Sellers": number;
+  "change (%) Unique Buyers": number;
+  "change (%) Sales Count": number;
+}

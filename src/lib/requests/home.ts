@@ -2,7 +2,7 @@ import {
   IDailyInformation,
   IPercentChangeOverTime,
 } from "lib/types/types/home";
-import { getSimpleArrayData } from "./utils";
+import { getSimpleArrayData, getSimpleInfo } from "./utils";
 
 export const getDailyInformation = () =>
   getSimpleArrayData<IDailyInformation, IDailyInformation>(
@@ -16,4 +16,10 @@ export const getPercentChangeOverTime = () =>
     "0eee1f28-2cad-4193-9e9f-8b56ffa190e4",
     "The percentage (%) increase/decrease of sales count,The percentage (%) increase/decrease of unique buyers,The percentage (%) increase/decrease unique sellers,The percentage (%) increase/decrease of sales volume",
     "Day"
+  );
+
+export const getTotalInfoCurrentAndChanges = () =>
+  getSimpleArrayData(
+    "e9851902-0c5f-49ea-8992-aa6a72e188c9",
+    "Current Sales Volume,Current Unique Sellers,Current Unique Buyers,Current Sales Count"
   );

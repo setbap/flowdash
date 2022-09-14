@@ -30,6 +30,7 @@ interface StatsCardProps {
   hasArrowIcon?: boolean;
   rotate?: string;
   change?: number;
+  changeUnit?: string;
 }
 export const StatsCard = (props: StatsCardProps) => {
   const bgCard = useColorModeValue("white", "#191919");
@@ -44,16 +45,23 @@ export const StatsCard = (props: StatsCardProps) => {
     forceDecimal = false,
     customColor = "#ec5f7e",
     decimal = 2,
+    changeUnit = "%",
   } = props;
   const defaultColor = useColorModeValue("gray.600", "gray.400");
   const incColor = useColorModeValue("green.800", "green.300");
   const decColor = useColorModeValue("red.800", "red.500");
   const [statusColor, setStatusColor] = useState<any>();
   useEffect(() => {
-    if (status === "inc" && statusColor !== incColor) {
+    if (
+      (status === "inc" && statusColor !== incColor) ||
+      +(change ?? "0") > 0
+    ) {
       setStatusColor(incColor);
     }
-    if (status === "dec" && statusColor !== decColor) {
+    if (
+      (status === "dec" && statusColor !== decColor) ||
+      +(change ?? "0") < 0
+    ) {
       setStatusColor(decColor);
     }
     if (status === "unchanged" && statusColor !== defaultColor) {
@@ -175,25 +183,27 @@ export const StatsCard = (props: StatsCardProps) => {
         left={"65%"}
         pos="absolute"
       ></Box>
-      <Box
-        width={"30%"}
-        h="full"
-        inset="0"
-        left={"70%"}
-        top={top}
-        transform="auto"
-        rotate={rotate}
-        pos="absolute"
-        zIndex={1}
-        display="flex"
-        justifyContent={"center"}
-        alignItems="center"
-        color={"blackAlpha.900"}
-        scale="1.75"
-      >
-        {hasArrowIcon && <HiArrowSmUp opacity={0.2} fontSize={"11rem"} />}
-      </Box>
-      {!!change && (
+      {change != null && (
+        <Box
+          width={"30%"}
+          h="full"
+          inset="0"
+          left={"70%"}
+          top={change! > 0 ? "25%" : "-25%"}
+          transform="auto"
+          rotate={change! > 0 ? "0" : "180deg"}
+          pos="absolute"
+          zIndex={1}
+          display="flex"
+          justifyContent={"center"}
+          alignItems="center"
+          color={"blackAlpha.900"}
+          scale="1.75"
+        >
+          {hasArrowIcon && <HiArrowSmUp opacity={0.2} fontSize={"11rem"} />}
+        </Box>
+      )}
+      {change != null && (
         <Box
           width={"30%"}
           h="full"
@@ -209,10 +219,17 @@ export const StatsCard = (props: StatsCardProps) => {
         >
           <Box d="flex" alignItems={"baseline"}>
             <Box fontSize={"3xl"} me="1px" fontWeight="bold">
-              {change.toString().slice(0, 1)}
+              {millify(change, {
+                precision: 1,
+                decimalSeparator: ".",
+              }).slice(0, change < 0 ? 2 : 1)}
             </Box>
             <Box verticalAlign={"baseline"} fontSize={"md"} fontWeight="bold">
-              {change.toString().slice(1)}
+              {millify(change, {
+                precision: 1,
+                decimalSeparator: ".",
+              }).slice(change < 0 ? 2 : 1)}
+              {changeUnit}
             </Box>
           </Box>
         </Box>

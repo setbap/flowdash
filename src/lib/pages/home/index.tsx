@@ -39,6 +39,7 @@ const colors = [
 const Governance = ({
   dailyInformation,
   percentChangeOverTime,
+  totalInfoCurrentAndChanges,
 }: HomeProps): JSX.Element => {
   return (
     <>
@@ -76,14 +77,11 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
         >
           <StatsCard
             hasArrowIcon={false}
-            rotate="180deg"
-            top="-20%"
             title={dailyInformation.title.split(",")[0]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Sales Count"]}
             status={"inc"}
           />
-
           <StatsCard
             hasArrowIcon={false}
             title={dailyInformation.title.split(",")[1]}
@@ -91,7 +89,6 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
             stat={dailyInformation.data[0]["Total Unique Buyers"]}
             status={"inc"}
           />
-
           <StatsCard
             hasArrowIcon={false}
             title={dailyInformation.title.split(",")[2]}
@@ -99,12 +96,51 @@ The National Football League (NFL), the NFL Players Association (NFLPA), and Dap
             stat={dailyInformation.data[0]["Total Unique Sellers"]}
             status={"inc"}
           />
-
           <StatsCard
             hasArrowIcon={false}
             title={dailyInformation.title.split(",")[4]}
             link={dailyInformation.key}
             stat={dailyInformation.data[0]["Total Sales Volume"]}
+            status={"inc"}
+          />
+          <StatsCard
+            hasArrowIcon={true}
+            title={totalInfoCurrentAndChanges.title.split(",")[0]}
+            link={totalInfoCurrentAndChanges.key}
+            stat={totalInfoCurrentAndChanges.data[0]["Current Sales Volume"]}
+            change={
+              totalInfoCurrentAndChanges.data[0]["change (%) Sales Volume"]
+            }
+            status={"inc"}
+          />
+          <StatsCard
+            hasArrowIcon={true}
+            title={totalInfoCurrentAndChanges.title.split(",")[1]}
+            link={totalInfoCurrentAndChanges.key}
+            stat={totalInfoCurrentAndChanges.data[0]["Current Unique Sellers"]}
+            change={
+              totalInfoCurrentAndChanges.data[0]["change (%) Unique Sellers"]
+            }
+            status={"inc"}
+          />
+          <StatsCard
+            hasArrowIcon={true}
+            title={totalInfoCurrentAndChanges.title.split(",")[2]}
+            link={totalInfoCurrentAndChanges.key}
+            stat={totalInfoCurrentAndChanges.data[0]["Current Unique Buyers"]}
+            change={
+              totalInfoCurrentAndChanges.data[0]["change (%) Unique Buyers"]
+            }
+            status={"inc"}
+          />
+          <StatsCard
+            hasArrowIcon={true}
+            title={totalInfoCurrentAndChanges.title.split(",")[3]}
+            link={totalInfoCurrentAndChanges.key}
+            stat={totalInfoCurrentAndChanges.data[0]["Current Sales Count"]}
+            change={
+              totalInfoCurrentAndChanges.data[0]["change (%) Sales Count"]
+            }
             status={"inc"}
           />
         </SimpleGrid>
