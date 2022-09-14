@@ -190,7 +190,7 @@ export const StatsCard = (props: StatsCardProps) => {
           alignItems="center"
           color={statusColor}
         >
-          <HiArrowSmUp opacity={0.5} fontSize={"7rem"} />
+          <HiArrowSmUp opacity={0.2} fontSize={"12rem"} />
         </Box>
       )}
     </Stat>

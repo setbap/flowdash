@@ -20,6 +20,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ShowTable } from "lib/components/charts/ShowTable";
 import TableBox from "lib/components/charts/TableBox";
 import BarGraph from "lib/components/charts/BarGraph";
+import TableModalButton from "lib/components/basic/TableModalButton";
+import LineChartWithBar from "lib/components/charts/LineChartWithBar";
 const colors = [
   "#ff5722",
   "#03a9f4",
@@ -82,31 +84,12 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
     enableSorting: false,
     enableColumnFilter: false,
     enableGlobalFilter: false,
-    cell: (info) => {
-      const { isOpen, onOpen, onClose } = useDisclosure();
-      return (
-        <>
-          <Button size={"sm"} variant="outline" m={"1"} onClick={onOpen}>
-            Show Detail
-          </Button>
-
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent bg={"#191919"}>
-              <ModalHeader>Moment Description</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>{info.getValue() as string}</ModalBody>
-
-              <ModalFooter>
-                <Button mr={3} onClick={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        </>
-      );
-    },
+    cell: (info) => (
+      <TableModalButton
+        modalTitle="Moment Description"
+        value={info.getValue() as string}
+      />
+    ),
     header: (props) => <span>{props.header.id}</span>,
   },
 ];
@@ -114,6 +97,10 @@ const colDef: ColumnDef<ITopNFTBasedOnVolume>[] = [
 const Governance = ({
   topNFTVolume,
   topNFTIDBaseSaleNumber,
+  topPlayerBaseOnVolumeSales,
+  topPlayerBaseOnNumberSales,
+  topTeamBaseOnVolumeSales,
+  topTeamBaseOnNumberSales,
 }: TopsProps): JSX.Element => {
   return (
     <>
@@ -183,6 +170,67 @@ Assumenda photo booth excepteur adipisicing scenester PBR. Swag id 8-bit dolor p
               {
                 key: "Number of Sale",
                 color: colors[0],
+              },
+            ]}
+          />
+          <LineChartWithBar
+            queryLink={topPlayerBaseOnVolumeSales.key}
+            data={topPlayerBaseOnVolumeSales.data}
+            title={topPlayerBaseOnVolumeSales.title}
+            baseSpan={3}
+            isNotDate
+            showSeprate
+            barColor={colors[5]}
+            barDataKey={"Total Volume of Sale"}
+            lineDataKey={"Average price of Sale"}
+            modalInfo={""}
+            xAxisDataKey={"Player - Team"}
+          />
+          <BarGraph
+            queryLink={topPlayerBaseOnNumberSales.key}
+            values={topPlayerBaseOnNumberSales.data}
+            title={topPlayerBaseOnNumberSales.title}
+            baseSpan={3}
+            isNotDate
+            dataKey={"Player - Team"}
+            modalInfo={""}
+            oxLabel={""}
+            oyLabel={"sale count"}
+            labels={[
+              {
+                key: "Number of Sale",
+                color: colors[5],
+              },
+            ]}
+          />
+          ---
+          <LineChartWithBar
+            queryLink={topTeamBaseOnVolumeSales.key}
+            data={topTeamBaseOnVolumeSales.data}
+            title={topTeamBaseOnVolumeSales.title}
+            baseSpan={3}
+            isNotDate
+            showSeprate
+            barColor={colors[5]}
+            barDataKey={"Total Volume of Sale"}
+            lineDataKey={"Average price of Sale"}
+            modalInfo={""}
+            xAxisDataKey={"Team"}
+          />
+          <BarGraph
+            queryLink={topTeamBaseOnNumberSales.key}
+            values={topTeamBaseOnNumberSales.data}
+            title={topTeamBaseOnNumberSales.title}
+            baseSpan={3}
+            isNotDate
+            dataKey={"Team"}
+            modalInfo={""}
+            oxLabel={""}
+            oyLabel={"sale count"}
+            labels={[
+              {
+                key: "Number of Sale",
+                color: colors[5],
               },
             ]}
           />
