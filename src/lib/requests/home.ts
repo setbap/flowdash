@@ -1,12 +1,8 @@
-import { ReturnDataType } from "lib/types/types/base";
 import {
   IDailyInformation,
   IPercentChangeOverTime,
 } from "lib/types/types/home";
 import { getSimpleArrayData } from "./utils";
-
-// requrest
-export const pageName = "Home";
 
 export const getDailyInformation = () =>
   getSimpleArrayData<IDailyInformation, IDailyInformation>(

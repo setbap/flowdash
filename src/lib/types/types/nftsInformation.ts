@@ -16,3 +16,11 @@ export interface INFTsInformation {
   "Top Sales $": number;
   "Minimum Sales $": number;
 }
+
+export interface INFTSaleInformation {
+  timestamp: string;
+  "tx id": string;
+  "buyer wallet": string;
+  "seller wallet": string;
+  price: number;
+}

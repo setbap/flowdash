@@ -1,17 +1,20 @@
 import { QueryResultSet, Flipside, Query } from "@flipsidecrypto/sdk";
 
-const getData = async (
-  address: string = "0x7c36eb1ef5b94fadbd38fc35df4f3e25f724e43c"
-): Promise<QueryResultSet> => {
+const getData = async (id: string = "816"): Promise<QueryResultSet> => {
   const flipside = new Flipside(
     `${process.env.FLIPSIDE_KEY}`,
     "https://node-api.flipsidecrypto.com"
   );
+
   const rawQuery = `
-    select tx_hash, block_timestamp,nonce,origin_function_signature
-    from polygon.core.fact_transactions
-    where FROM_ADDRESS = '${address.toLowerCase()}'
-    order by block_timestamp desc
+select 
+  block_timestamp as "Timestamp",
+  tx_id as "TX ID",
+  buyer as "Buyer wallet",
+  seller as "Seller wallet",
+  price as "Price"
+from flow.core.ez_nft_sales s join flow.core.dim_allday_metadata m on s.nft_id = m.nft_id
+where moment_stats_full:flowID = '${+id}' and tx_succeeded = true
     `;
 
   const query: Query = {
@@ -26,13 +29,13 @@ const getData = async (
 
 export default async function addressHandler(req: any, res: any) {
   const {
-    query: { address },
+    query: { id },
     method,
   } = req;
 
   switch (method) {
     case "GET":
-      const data = await getData(address);
+      const data = await getData(id);
       res.status(200).json(data);
       break;
 

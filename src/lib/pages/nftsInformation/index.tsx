@@ -6,6 +6,7 @@ import { NFTsInformationProps } from "pages/nfts_information";
 import { ColumnDef } from "@tanstack/react-table";
 import TableBox from "lib/components/charts/TableBox";
 import { useRouter } from "next/router";
+import TextBox from "lib/components/charts/TextBox";
 
 const colors = [
   "#ff5722",
@@ -109,7 +110,11 @@ const colDef: ColumnDef<INFTsInformation>[] = [
   {
     accessorFn: (row) => row["Minimum Sales $"],
     id: "Minimum Sales $",
-    cell: (info) => info.getValue(),
+    cell: (info) => (
+      <Box p={2} height={"40px"}>
+        {info.getValue()}
+      </Box>
+    ),
     header: (props) => <span>{props.header.id}</span>,
   },
 ];
@@ -141,16 +146,17 @@ const NFTAnalysis = ({
           cardType: "summary_large_image",
         }}
       />
-      <Box mx={"auto"} px={{ base: 6, sm: 2, md: 8 }}>
-        <SimpleGrid
-          my={"6"}
-          columns={{ base: 1, md: 2, lg: 2, "2xl": 3 }}
-          spacing={{ base: 5, lg: 8 }}
-        ></SimpleGrid>
+      <Box mx={"auto"} pt="4" px={{ base: 6, sm: 2, md: 8 }}>
+        <TextBox>
+          {`
+The above ID is the same as the id used in [__https://nflallday.com/__](https://nflallday.com/) for each moment.
+Important properties of each NFT on NBA All Day has shown.If you click on each row, you will be able to see the sales transactions of each NFT.
+`}
+        </TextBox>
         <SimpleGrid
           position={"relative"}
           transition={"all 0.9s ease-in-out"}
-          py={"6"}
+          py={"4"}
           zIndex={100}
           columns={{ sm: 1, md: 1, lg: 2, "2xl": 3 }}
           spacing={{ base: 1, md: 2, lg: 4 }}
@@ -160,12 +166,10 @@ const NFTAnalysis = ({
             queryLink={allNFTsInformation.key}
             title={allNFTsInformation.title}
             baseSpan={3}
-            onRowClick={(row) => router.push(`/nft/${row["NFT ID"]}`)}
-            modalInfo={`
-## modal info
-
-It’s a know fact that a reader will be distracted by readable text when looking at any type of layout. Because of this, the printing and typesetting industry uses lorem ipsum. Lorem ipsum is a dummy language used as filler text since the 1500s.
-`}
+            onRowClick={(row) =>
+              router.push(`/nfts_information/${row["NFT ID"]}`)
+            }
+            modalInfo={``}
             data={allNFTsInformation.data}
             columnsDef={colDef}
           />

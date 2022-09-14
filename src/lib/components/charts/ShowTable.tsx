@@ -101,86 +101,96 @@ export function ShowTable<T>({
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
   });
   return (
-    <TableContainer pt={"2"} pb="4" w="full">
-      <ChTable overflow={"hidden"} variant="simple">
-        <Thead
-          borderTopRadius={"sm"}
-          overflow="hidden"
-          color={"black"}
-          bg={`${customHeaderColor}20`}
-        >
-          {table.getHeaderGroups().map((headerGroup) => (
-            <Tr h={"4"} color="black" key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <Th key={header.id}>
-                  <Box
-                    d="inline-block"
-                    cursor={header.column.getCanSort() ? "pointer" : "default"}
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
+    <>
+      <TableContainer pt={"2"} pb="4" w="full">
+        <ChTable overflow={"hidden"} variant="simple">
+          <Thead
+            borderTopRadius={"sm"}
+            overflow="hidden"
+            color={"black"}
+            bg={`${customHeaderColor}20`}
+          >
+            {table.getHeaderGroups().map((headerGroup) => (
+              <Tr h={"4"} color="black" key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <Th key={header.id}>
+                    <Box
+                      d="inline-block"
+                      cursor={
+                        header.column.getCanSort() ? "pointer" : "default"
+                      }
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                      <small>
+                        {" "}
+                        {!!header.column.getFilterValue() &&
+                          `(${header.column.getFilterValue()})`}
+                      </small>
+                      <Box d="inline-block">
+                        <SortStateIcon data={header.column.getIsSorted()} />
+                      </Box>
+                    </Box>
+                    {header.column.getCanFilter() ? (
+                      <Box ml={2} d="inline-block">
+                        <Filter column={header.column} table={table} />
+                      </Box>
+                    ) : null}
+                  </Th>
+                ))}
+              </Tr>
+            ))}
+          </Thead>
+          <Tbody>
+            {table.getRowModel().rows.map((row) => (
+              <Tr
+                onClick={() => {
+                  if (!onRowClick) {
+                    return;
+                  }
+                  return onRowClick(row.original as T);
+                }}
+                _hover={{ bg: "#242424" }}
+                key={row.id}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <Td border={"none"} p="1" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Td>
+                ))}
+              </Tr>
+            ))}
+          </Tbody>
+          <Tfoot>
+            {table.getFooterGroups().map((footerGroup) => (
+              <Tr key={footerGroup.id}>
+                {footerGroup.headers.map((header) => (
+                  <Th key={header.id}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
+                          header.column.columnDef.footer,
                           header.getContext()
                         )}
-                    <small>
-                      {" "}
-                      {!!header.column.getFilterValue() &&
-                        `(${header.column.getFilterValue()})`}
-                    </small>
-                    <Box d="inline-block">
-                      <SortStateIcon data={header.column.getIsSorted()} />
-                    </Box>
-                  </Box>
-                  {header.column.getCanFilter() ? (
-                    <Box ml={2} d="inline-block">
-                      <Filter column={header.column} table={table} />
-                    </Box>
-                  ) : null}
-                </Th>
-              ))}
-            </Tr>
-          ))}
-        </Thead>
-        <Tbody>
-          {table.getRowModel().rows.map((row) => (
-            <Tr
-              onClick={() => {
-                if (!onRowClick) {
-                  return;
-                }
-                return onRowClick(row.original as T);
-              }}
-              _hover={{ bg: "#242424" }}
-              key={row.id}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <Td border={"none"} p="1" key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Td>
-              ))}
-            </Tr>
-          ))}
-        </Tbody>
-        <Tfoot>
-          {table.getFooterGroups().map((footerGroup) => (
-            <Tr key={footerGroup.id}>
-              {footerGroup.headers.map((header) => (
-                <Th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.footer,
-                        header.getContext()
-                      )}
-                </Th>
-              ))}
-            </Tr>
-          ))}
-        </Tfoot>
-      </ChTable>
-      <HStack justifyContent={"space-between"} spacing={4}>
+                  </Th>
+                ))}
+              </Tr>
+            ))}
+          </Tfoot>
+        </ChTable>
+      </TableContainer>
+
+      <HStack
+        width={"full"}
+        mt="4"
+        justifyContent={"space-between"}
+        spacing={4}
+      >
         <InputGroup w={"160px"} rounded={"lg"} overflow="hidden" size="sm">
           <InputLeftAddon children="page" />
           <Input
@@ -221,7 +231,6 @@ export function ShowTable<T>({
             disabled={!table.getCanNextPage()}
           />
         </ButtonGroup>
-
         <Select
           w={"160px"}
           size="sm"
@@ -239,7 +248,7 @@ export function ShowTable<T>({
           ))}
         </Select>
       </HStack>
-    </TableContainer>
+    </>
   );
 }
 
