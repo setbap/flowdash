@@ -23,6 +23,7 @@ import TableBox from "lib/components/charts/TableBox";
 import { useRouter } from "next/router";
 import TextBox from "lib/components/charts/TextBox";
 import { ReturnDataType } from "lib/types/types/base";
+import NFTMEetaData from "./NFTMEetaData";
 
 const colors = [
   "#ff5722",
@@ -117,38 +118,7 @@ const NFTSellInformation = ({
         }}
       />
       <Box mx={"auto"} w="full" pt="4" px={{ base: 6, sm: 2, md: 8 }}>
-        {/*
-        <Flex wrap="wrap" direction="row">
-          {Object.keys(nftSellInformation.data.metadata)
-            .filter((key) => metadata_name.includes(key))
-            .map((key: any) => {
-              return (
-                <Box
-                  bg={"#191919"}
-                  px={"4"}
-                  py="4"
-                  mb="3"
-                  me={"3"}
-                  rounded={"md"}
-                  key={key}
-                >
-                  {key.split("_").join(" ")} :
-                  <strong>
-                    {/* @ts-ignore 
-                    {nftSellInformation.data.metadata[key as any]}
-                  </strong>
-                </Box>
-              );
-            })}
-        </Flex>
-        <TextBox>
-          {`
-moment description
-
-__${nftSellInformation.data.metadata.moment_description}__
-
-`}
-        </TextBox> */}
+        <NFTMEetaData />
         <SimpleGrid
           position={"relative"}
           transition={"all 0.9s ease-in-out"}

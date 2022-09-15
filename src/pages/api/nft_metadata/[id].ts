@@ -10,6 +10,7 @@ const getData = async (id: string = "816"): Promise<QueryResultSet> => {
 select *
 from flow.core.dim_allday_metadata
 where moment_stats_full:flowID='${+id}'
+limit 1
     `;
 
   const query: Query = {

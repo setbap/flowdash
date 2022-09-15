@@ -96,6 +96,7 @@ function NFT_INFORMATION() {
           )}
 
           {query.isSuccess &&
+            !!query.data &&
             query.data.saleInfo.status === QueryStatusFinished &&
             !query.data.saleInfo.records?.length && (
               <TxItemContainer>
