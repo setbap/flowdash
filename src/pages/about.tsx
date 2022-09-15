@@ -19,7 +19,7 @@ const About = () => {
         >
           <MDRenderer>
             {`
-
+![Flow Image](/og.png)
 ## About
 
 This dashboard is made with love by members of the ${names.BLOCKCHAIN} community, in partnership with Flipside Crypto. We hope it serves as a valuable window into high-level metrics that display the vitality and growth of the ${names.BLOCKCHAIN} Ecosystem.
